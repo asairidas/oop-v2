@@ -18,7 +18,7 @@ int main()
 
     Mokinys m;
 
-    cout << "Iveskite varda" << endl;
+    cout << "Iveskite varda:" << endl;
     cin >> m.vardas;
     cout << "Ivedete varda " << m.vardas << endl;
     cout << "Iveskite pavarde" << endl;
