@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1726686259 source:d:\airido dokumentai\studijos\objektinisprogramavimas\oop-v1\main.cpp
+	<iostream>
+	<string>
+	<vector>
+
