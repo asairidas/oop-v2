@@ -16,7 +16,6 @@ struct Mokinys
     int egzamino_rezultatas{0};
 };
 
-// funkcija, kuri skaiciuoja vidurki ir paima mokinio struktura ir grazina vidurki
 double skaiciuoti_vidurki(Mokinys m)
 {
     double vidurkis = 0;
