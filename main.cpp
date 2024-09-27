@@ -68,12 +68,25 @@ Mokinys nuskaityti_mokinio_duomenis()
     while (getline(cin, str_pazymys) && !str_pazymys.empty())
     {
         int pazymys = stoi(str_pazymys);
+        // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+        if (pazymys == 0)
+        {
+            pazymys = rand() % 10 + 1;
+            cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
+        }
         m.namu_darbu_rezultatai.push_back(pazymys);
         cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
     }
 
     cout << "Iveskite egzamino rezultata" << endl;
     cin >> m.egzamino_rezultatas;
+    // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+    if (m.egzamino_rezultatas == 0)
+    {
+        m.egzamino_rezultatas = rand() % 10 + 1;
+        cout << "Sugeneruotas atsitiktinis pazymys: " << m.egzamino_rezultatas << endl;
+    }
+
     cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
 
     return m;
@@ -139,7 +152,7 @@ int main()
     for (int i = 0; i < mokiniai.size(); i++)
     {
         auto galutinis = skaiciuoti_galutini(mokiniai[i], pasirinkimas);
-        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << galutinis << endl;
+        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << fixed << setprecision(2) << galutinis << endl;
     }
 
     return 0;
