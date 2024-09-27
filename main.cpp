@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <cstdlib>
+#include <limits>
 
 using namespace std;
 // #include "MyLib.h"
@@ -18,6 +19,12 @@ struct Mokinys
 
 double skaiciuoti_vidurki(Mokinys &m)
 {
+    // jeigu pazymiu nera grazina 0
+    if (m.namu_darbu_rezultatai.size() == 0)
+    {
+        return 0;
+    }
+
     double nd_suma = 0;
     double vidurkis = 0;
     for (int j = 0; j < m.namu_darbu_rezultatai.size(); j++)
@@ -25,7 +32,7 @@ double skaiciuoti_vidurki(Mokinys &m)
         nd_suma += m.namu_darbu_rezultatai[j];
     }
     vidurkis = nd_suma / m.namu_darbu_rezultatai.size();
-    return 0.4 * vidurkis + 0.6 * m.egzamino_rezultatas;
+    return vidurkis;
 }
 
 double skaiciuoti_mediana(Mokinys &m)
@@ -42,7 +49,7 @@ double skaiciuoti_mediana(Mokinys &m)
     {
         mediana = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2];
     }
-    return 0.4 * mediana + 0.6 * m.egzamino_rezultatas;
+    return mediana;
 }
 
 Mokinys nuskaityti_mokinio_duomenis()
@@ -54,16 +61,15 @@ Mokinys nuskaityti_mokinio_duomenis()
     cout << "Iveskite pavarde" << endl;
     cin >> m.pavarde;
     cout << "Ivedete pavarde " << m.pavarde << endl;
-    cout << "Iveskite namu darbu skaiciu" << endl;
-    cin >> m.namu_darbu_kiekis;
-    cout << "Ivedete " << m.namu_darbu_kiekis << endl;
 
-    for (int i = 0; i < m.namu_darbu_kiekis; i++)
+    string str_pazymys;
+    cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
+    cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
+    while (getline(cin, str_pazymys) && !str_pazymys.empty())
     {
-        int pazymys;
-        cout << "Iveskite pazymi nr " << i + 1 << endl;
-        cin >> pazymys;
+        int pazymys = stoi(str_pazymys);
         m.namu_darbu_rezultatai.push_back(pazymys);
+        cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
     }
 
     cout << "Iveskite egzamino rezultata" << endl;
@@ -71,6 +77,21 @@ Mokinys nuskaityti_mokinio_duomenis()
     cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
 
     return m;
+}
+
+double skaiciuoti_galutini(Mokinys m, string pasirinkimas)
+{
+    double vid_med = 0;
+    if (pasirinkimas == "med")
+    {
+        vid_med = skaiciuoti_mediana(m);
+    }
+    else
+    {
+        vid_med = skaiciuoti_vidurki(m);
+    }
+    double galutinis = 0.4 * vid_med + 0.6 * m.egzamino_rezultatas;
+    return galutinis;
 }
 
 int main()
@@ -117,17 +138,8 @@ int main()
     cout << "------------------------------------------" << endl;
     for (int i = 0; i < mokiniai.size(); i++)
     {
-        double vid_med = 0;
-        if (pasirinkimas == "med")
-        {
-            vid_med = skaiciuoti_mediana(mokiniai[i]);
-        }
-        else
-        {
-            vid_med = skaiciuoti_vidurki(mokiniai[i]);
-        }
-
-        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << vid_med << endl;
+        auto galutinis = skaiciuoti_galutini(mokiniai[i], pasirinkimas);
+        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << galutinis << endl;
     }
 
     return 0;
