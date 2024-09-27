@@ -63,7 +63,7 @@ Mokinys nuskaityti_mokinio_duomenis()
     cout << "Ivedete pavarde " << m.pavarde << endl;
 
     string str_pazymys;
-    cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
+    cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete). Jei ivesite 0, bus sugeneruotas atsitiktinis balas: ";
     cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
     while (getline(cin, str_pazymys) && !str_pazymys.empty())
     {
@@ -78,7 +78,7 @@ Mokinys nuskaityti_mokinio_duomenis()
         cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
     }
 
-    cout << "Iveskite egzamino rezultata" << endl;
+    cout << "Iveskite egzamino rezultata. Jei ivesite 0, bus sugeneruotas atsitiktinis balas:" << endl;
     cin >> m.egzamino_rezultatas;
     // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
     if (m.egzamino_rezultatas == 0)
