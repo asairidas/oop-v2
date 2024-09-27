@@ -12,7 +12,6 @@
 #include "statistika.h"
 
 using namespace std;
-// #include "MyLib.h"
 
 Mokinys nuskaityti_mokinio_duomenis()
 {
