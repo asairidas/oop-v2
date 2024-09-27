@@ -6,7 +6,7 @@
 #include <cstdlib>
 
 using namespace std;
-
+// #include "MyLib.h"
 struct Mokinys
 {
     string vardas;
@@ -16,17 +16,19 @@ struct Mokinys
     int egzamino_rezultatas{0};
 };
 
-double skaiciuoti_vidurki(Mokinys m)
+double skaiciuoti_vidurki(Mokinys &m)
 {
+    double nd_suma = 0;
     double vidurkis = 0;
     for (int j = 0; j < m.namu_darbu_rezultatai.size(); j++)
     {
-        vidurkis += m.namu_darbu_rezultatai[j];
+        nd_suma += m.namu_darbu_rezultatai[j];
     }
-    return vidurkis / m.namu_darbu_rezultatai.size();
+    vidurkis = nd_suma / m.namu_darbu_rezultatai.size();
+    return 0.4 * vidurkis + 0.6 * m.egzamino_rezultatas;
 }
 
-double skaiciuoti_mediana(Mokinys m)
+double skaiciuoti_mediana(Mokinys &m)
 {
     double mediana = 0;
     sort(m.namu_darbu_rezultatai.begin(), m.namu_darbu_rezultatai.end());
@@ -34,13 +36,13 @@ double skaiciuoti_mediana(Mokinys m)
     {
         auto pirmas = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2 - 1];
         auto antras = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2];
-        mediana = (pirmas + antras) / 2;
+        mediana = (pirmas + antras) / 2.0;
     }
     else
     {
         mediana = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2];
     }
-    return mediana;
+    return 0.4 * mediana + 0.6 * m.egzamino_rezultatas;
 }
 
 Mokinys nuskaityti_mokinio_duomenis()
@@ -63,6 +65,11 @@ Mokinys nuskaityti_mokinio_duomenis()
         cin >> pazymys;
         m.namu_darbu_rezultatai.push_back(pazymys);
     }
+
+    cout << "Iveskite egzamino rezultata" << endl;
+    cin >> m.egzamino_rezultatas;
+    cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
+
     return m;
 }
 
@@ -105,22 +112,22 @@ int main()
     {
         skaiciavimo_budas = "(med.)";
     }
-    cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis" << skaiciavimo_budas << endl;
+    cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << left << "Galutinis" << skaiciavimo_budas << endl;
 
     cout << "------------------------------------------" << endl;
     for (int i = 0; i < mokiniai.size(); i++)
     {
-        double vidurkis;
+        double vid_med = 0;
         if (pasirinkimas == "med")
         {
-            vidurkis = skaiciuoti_mediana(mokiniai[i]);
+            vid_med = skaiciuoti_mediana(mokiniai[i]);
         }
         else
         {
-            vidurkis = skaiciuoti_vidurki(mokiniai[i]);
+            vid_med = skaiciuoti_vidurki(mokiniai[i]);
         }
 
-        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << setw(20) << vidurkis << endl;
+        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << vid_med << endl;
     }
 
     return 0;
