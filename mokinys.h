@@ -1,3 +1,6 @@
+#ifndef mokinys_h
+#define mokinys_h
+
 #include <string>
 #include <vector>
 
@@ -11,3 +14,5 @@ struct Mokinys
     vector<int> namu_darbu_rezultatai;
     int egzamino_rezultatas{0};
 };
+
+#endif
