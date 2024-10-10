@@ -7,6 +7,7 @@
 #include <limits>
 #include <fstream>
 #include <iterator>
+#include <chrono>
 
 #include "mokinys.h"
 #include "statistika.h"
@@ -216,17 +217,29 @@ void failu_irasymas(vector<Mokinys> mokiniai, string failo_vardas)
 int main()
 {
 
-    failu_generavimas(11);
+    failu_generavimas(1100);
     vector<Mokinys> mokiniai;
+
+    auto pradzia_nuskaitymas = chrono::high_resolution_clock::now();
     mokiniai = duomenu_nuskaitymas_is_failo("mokiniai.txt");
+    auto pabaiga_nuskaitymas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
 
     // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
+    auto pradzia_rikiavimas = chrono::high_resolution_clock::now();
     sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
+    auto pabaiga_rikiavimas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> rikiavimo_trukme = pabaiga_rikiavimas - pradzia_rikiavimas;
+
+    auto pradzia_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
     for (int i = 0; i < mokiniai.size(); i++)
     {
         mokiniai[i].galutinis = skaiciuoti_galutini(mokiniai[i], "vid");
     }
+    auto pabaiga_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> galutinio_skaiciavimo_trukme = pabaiga_galutinio_skaiciavimas - pradzia_galutinio_skaiciavimas;
+
     vector<Mokinys> protingi;
     vector<Mokinys> silpni_moksluose;
 
@@ -243,4 +256,8 @@ int main()
     }
     failu_irasymas(protingi, "protingi.txt");
     failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
+
+    cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
+    cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
+    cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
 }
