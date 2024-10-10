@@ -214,10 +214,9 @@ void failu_irasymas(vector<Mokinys> mokiniai, string failo_vardas)
     }
 }
 
-int main()
+void eksperimentas(int eiluciu_kiekis)
 {
-
-    failu_generavimas(1100);
+    failu_generavimas(eiluciu_kiekis);
     vector<Mokinys> mokiniai;
 
     auto pradzia_nuskaitymas = chrono::high_resolution_clock::now();
@@ -257,7 +256,25 @@ int main()
     failu_irasymas(protingi, "protingi.txt");
     failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
 
+    cout << "---------[Programos greicio analize - " << eiluciu_kiekis << " eiluciu]---------" << endl
+         << endl;
     cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
     cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
     cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
+    cout << "-------------------------------------------------------------------"
+         << endl
+         << endl;
+}
+
+int main()
+{
+
+    std::vector<int> eksperimentai{1000, 10000, 100000};
+    // ateiciai
+    // std::vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
+
+    for (auto eksperimento_dydis : eksperimentai)
+    {
+        eksperimentas(eksperimento_dydis);
+    }
 }
