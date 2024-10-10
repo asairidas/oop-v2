@@ -153,63 +153,94 @@ bool mokiniu_palygintojas(const Mokinys &kairys, const Mokinys &desinys)
     return kairys.pavarde < desinys.pavarde;
 }
 
+// sukursiu funkcija, kuri sugeneruos faila su atsitiktiniais duomenimis
+void failu_generavimas(int eiluciu_skaicius)
+{
+    ofstream failas("mokiniai.txt");
+    if (!failas)
+    {
+        cerr << "Nepavyko sukurti failo mokiniai.txt" << endl;
+        return;
+    }
+
+    // irasom pirma eilute
+    failas << "Vardas Pavarde ";
+    for (int i = 1; i <= 15; i++)
+    {
+        failas << "ND" << i << " ";
+    }
+    failas << "Egz." << endl;
+
+    for (int i = 0; i < eiluciu_skaicius; i++)
+    {
+        failas << "vardas" << i << " pavarde" << i << " ";
+        for (int j = 0; j < 15; j++)
+        {
+            failas << rand() % 10 + 1 << " ";
+        }
+        failas << rand() % 10 + 1 << endl;
+    }
+}
+
+void failu_irasymas(vector<Mokinys> mokiniai, string failo_vardas)
+{
+    ofstream failas(failo_vardas);
+    if (!failas)
+    {
+        cerr << "Nepavyko sukurti failo " << failo_vardas << "." << endl;
+        return;
+    }
+
+    // irasom pirma eilute
+    failas << "Vardas Pavarde ";
+
+    auto pazymiu_kiekis = mokiniai[0].namu_darbu_rezultatai.size();
+
+    for (int i = 1; i <= pazymiu_kiekis; i++)
+    {
+        failas << "ND" << i << " ";
+    }
+    failas << "Egz." << endl;
+
+    for (auto mokinys : mokiniai)
+    {
+        failas << mokinys.vardas << " " << mokinys.pavarde << " ";
+        for (auto pazymys : mokinys.namu_darbu_rezultatai)
+        {
+            failas << pazymys << " ";
+        }
+        failas << mokinys.egzamino_rezultatas << endl;
+    }
+}
+
 int main()
 {
-    // leidziame vartotojui pasirinkti, ar duomenis ivesime is klaviaturos ar nuskaitysime is failo
-    cout << "Ar norite ivesti duomenis is klaviaturos ar nuskaityti is failo? (iveskite 'klav' arba 'failas')" << endl;
-    string pasirinkimas;
-    cin >> pasirinkimas;
-    if (pasirinkimas != "klav" && pasirinkimas != "failas")
-    {
-        cerr << "Neteisingas pasirinkimas" << endl;
-        return 1;
-    }
 
+    failu_generavimas(11);
     vector<Mokinys> mokiniai;
-    if (pasirinkimas == "klav")
-    {
+    mokiniai = duomenu_nuskaitymas_is_failo("mokiniai.txt");
 
-        mokiniai = duomenu_nuskaitymas_is_klaviaturos();
-    }
-    else
-    {
-        // nuskaitymas is failo
-        // iveskite failo varda:
+    // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
-        cout << "Iveskite failo varda" << endl;
-        string failo_vardas;
-        cin >> failo_vardas;
-
-        mokiniai = duomenu_nuskaitymas_is_failo(failo_vardas);
-    }
-
-    cout << "Ko nori ar vidurkio ar medianos (iveskite 'vid' arba 'med')?" << endl;
-    cin >> pasirinkimas;
-    if (pasirinkimas != "vid" && pasirinkimas != "med")
-    {
-        cerr << "Neteisingas pasirinkimas" << endl;
-        return 1;
-    }
-    string skaiciavimo_budas;
-    if (pasirinkimas == "vid")
-    {
-        skaiciavimo_budas = "(vid.)";
-    }
-    else
-    {
-        skaiciavimo_budas = "(med.)";
-    }
-    cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << left << "Galutinis" << skaiciavimo_budas << endl;
-
-    // surikiuojame mokinius pagal pavarde, tada pagal varda
     sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
-
-    cout << "------------------------------------------" << endl;
     for (int i = 0; i < mokiniai.size(); i++)
     {
-        auto galutinis = skaiciuoti_galutini(mokiniai[i], pasirinkimas);
-        cout << left << setw(15) << mokiniai[i].vardas << setw(15) << mokiniai[i].pavarde << left << fixed << setprecision(2) << galutinis << endl;
+        mokiniai[i].galutinis = skaiciuoti_galutini(mokiniai[i], "vid");
     }
+    vector<Mokinys> protingi;
+    vector<Mokinys> silpni_moksluose;
 
-    return 0;
+    for (int i = 0; i < mokiniai.size(); i++)
+    {
+        if (mokiniai[i].galutinis >= 5)
+        {
+            protingi.push_back(mokiniai[i]);
+        }
+        else
+        {
+            silpni_moksluose.push_back(mokiniai[i]);
+        }
+    }
+    failu_irasymas(protingi, "protingi.txt");
+    failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
 }
