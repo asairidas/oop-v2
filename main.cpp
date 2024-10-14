@@ -220,16 +220,17 @@ void eksperimentas(int eiluciu_kiekis)
     vector<Mokinys> mokiniai;
 
     auto pradzia_nuskaitymas = chrono::high_resolution_clock::now();
+    auto pradzia_bendras = pradzia_nuskaitymas;
     mokiniai = duomenu_nuskaitymas_is_failo("mokiniai.txt");
     auto pabaiga_nuskaitymas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
-
-    // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
     auto pradzia_rikiavimas = chrono::high_resolution_clock::now();
     sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
     auto pabaiga_rikiavimas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> rikiavimo_trukme = pabaiga_rikiavimas - pradzia_rikiavimas;
+
+    // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
     auto pradzia_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
     for (int i = 0; i < mokiniai.size(); i++)
@@ -253,25 +254,38 @@ void eksperimentas(int eiluciu_kiekis)
             silpni_moksluose.push_back(mokiniai[i]);
         }
     }
+    auto pradzia_protingu_irasymas = chrono::high_resolution_clock::now();
     failu_irasymas(protingi, "protingi.txt");
-    failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
+    auto pabaiga_protingu_irasymas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> protingu_irasymas_trukme = pabaiga_protingu_irasymas - pradzia_protingu_irasymas;
 
-    cout << "---------[Programos greicio analize - " << eiluciu_kiekis << " eiluciu]---------" << endl
+    auto pradzia_silpnu_irasymas = chrono::high_resolution_clock::now();
+    failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
+    auto pabaiga_silpnu_irasymas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> silpnu_irasymas_trukme = pabaiga_silpnu_irasymas - pradzia_silpnu_irasymas;
+
+    auto pabaiga_bendras = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> bendras_trukme = pabaiga_bendras - pradzia_bendras;
+
+    cout << "---------[ Programos greicio analize - " << eiluciu_kiekis << " eiluciu ]---------" << endl
          << endl;
     cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
     cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
     cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
-    cout << "-------------------------------------------------------------------"
-         << endl
+    cout << "silpnuju mokiniu isvedimas i faila uztruko: " << silpnu_irasymas_trukme.count() << " ms" << endl;
+    cout << "protingu mokiniu isvedimas i faila uztruko: " << protingu_irasymas_trukme.count() << " ms" << endl;
+    cout << "visa trukme: " << bendras_trukme.count() << " ms" << endl;
+
+    cout << endl
          << endl;
 }
 
 int main()
 {
 
-    std::vector<int> eksperimentai{1000, 10000, 100000};
+    vector<int> eksperimentai{1000, 10000, 100000};
     // ateiciai
-    // std::vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
+    // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
 
     for (auto eksperimento_dydis : eksperimentai)
     {
