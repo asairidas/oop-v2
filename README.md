@@ -5,9 +5,15 @@ Pagrindinis programos failas yra **main.cpp**
 ![Patrikas](paveiksliukai/patrikas.jpg)
 ![greicio palyginimas](paveiksliukai/palyginimas.png)
 
-Procesorius:
-Atmintis:
-Kietas Diskas:
+Procesorius: AMD Ryzen 5 6600H, 12 CPUs, ~3.3GHz
+
+
+Atmintis: 16GB RAM
+
+
+Kietas Diskas: SSD
+
+
 
 
 # Algoritmo greičio palyginimas naudojant `std::vector` ir `std::list`
