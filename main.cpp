@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 #include <iomanip>
 #include <algorithm>
 #include <cstdlib>
@@ -98,7 +99,6 @@ vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
 }
 
 template <class K>
-
 K duomenu_nuskaitymas_is_failo(string failo_vardas)
 {
     K mokiniai;
@@ -198,7 +198,7 @@ void failu_irasymas(K mokiniai, string failo_vardas)
     // irasom pirma eilute
     failas << "Vardas Pavarde ";
 
-    auto pazymiu_kiekis = mokiniai[0].namu_darbu_rezultatai.size();
+    auto pazymiu_kiekis = mokiniai.front().namu_darbu_rezultatai.size();
 
     for (int i = 1; i <= pazymiu_kiekis; i++)
     {
@@ -217,6 +217,22 @@ void failu_irasymas(K mokiniai, string failo_vardas)
     }
 }
 
+// naudojame nuoroda, kad nedarytume kopijos
+template <class K>
+void rikiuok(K &mokiniai);
+
+template <>
+void rikiuok<vector<Mokinys>>(vector<Mokinys> &mokiniai)
+{
+    sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
+}
+
+template <>
+void rikiuok<list<Mokinys>>(list<Mokinys> &mokiniai)
+{
+    mokiniai.sort(mokiniu_palygintojas);
+}
+
 template <class K>
 void eksperimentas(int eiluciu_kiekis)
 {
@@ -230,34 +246,41 @@ void eksperimentas(int eiluciu_kiekis)
     chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
 
     auto pradzia_rikiavimas = chrono::high_resolution_clock::now();
-    sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
+    rikiuok(mokiniai);
     auto pabaiga_rikiavimas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> rikiavimo_trukme = pabaiga_rikiavimas - pradzia_rikiavimas;
 
     // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
     auto pradzia_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
-    for (int i = 0; i < mokiniai.size(); i++)
+    // for (int i = 0; i < mokiniai.size(); i++)
+    // {
+    //     mokiniai[i].galutinis = skaiciuoti_galutini(mokiniai[i], "vid");
+    // }
+
+    for (auto &mokinys : mokiniai)
     {
-        mokiniai[i].galutinis = skaiciuoti_galutini(mokiniai[i], "vid");
+        mokinys.galutinis = skaiciuoti_galutini(mokinys, "vid");
     }
+
     auto pabaiga_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> galutinio_skaiciavimo_trukme = pabaiga_galutinio_skaiciavimas - pradzia_galutinio_skaiciavimas;
 
     K protingi;
     K silpni_moksluose;
 
-    for (int i = 0; i < mokiniai.size(); i++)
+    for (auto mokinys : mokiniai)
     {
-        if (mokiniai[i].galutinis >= 5)
+        if (mokinys.galutinis >= 5)
         {
-            protingi.push_back(mokiniai[i]);
+            protingi.push_back(mokinys);
         }
         else
         {
-            silpni_moksluose.push_back(mokiniai[i]);
+            silpni_moksluose.push_back(mokinys);
         }
     }
+
     auto pradzia_protingu_irasymas = chrono::high_resolution_clock::now();
     failu_irasymas(protingi, "protingi.txt");
     auto pabaiga_protingu_irasymas = chrono::high_resolution_clock::now();
@@ -291,9 +314,15 @@ int main()
     // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
     // negeneruosiu 1000000 ir 10000000 eiluciu failu, nes programa veiks labai letai uzluzti
 
+    cout << "Greicio eksperimentai naudojant vector" << endl;
     for (int eksperimento_dydis : eksperimentai)
     {
-
         eksperimentas<vector<Mokinys>>(eksperimento_dydis);
+    }
+
+    cout << "Greicio eksperimentai naudojant list" << endl;
+    for (int eksperimento_dydis : eksperimentai)
+    {
+        eksperimentas<list<Mokinys>>(eksperimento_dydis);
     }
 }
