@@ -2,7 +2,6 @@
 
 Pagrindinis programos failas yra **main.cpp**
 
-![Patrikas](paveiksliukai/patrikas.jpg)
 ![greicio palyginimas](paveiksliukai/palyginimas.png)
 
 Procesorius: AMD Ryzen 5 6600H, 12 CPUs, ~3.3GHz
