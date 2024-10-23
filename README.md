@@ -2,4 +2,8 @@
 
 Pagrindinis programos failas yra **main.cpp**
 
-![Patrikas](patrikas.jpg)
+![Patrikas](paveiksliukai/patrikas.jpg)
+
+Procesorius:
+Atmintis:
+Kietas Diskas:
