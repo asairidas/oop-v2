@@ -3,6 +3,7 @@
 Pagrindinis programos failas yra **main.cpp**
 
 ![Patrikas](paveiksliukai/patrikas.jpg)
+![greicio palyginimas](paveiksliukai/palyginimas.png)
 
 Procesorius:
 Atmintis:
