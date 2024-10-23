@@ -269,6 +269,7 @@ void eksperimentas(int eiluciu_kiekis)
     K protingi;
     K silpni_moksluose;
 
+    auto pradzia_atskyrimas = chrono::high_resolution_clock::now();
     for (auto mokinys : mokiniai)
     {
         if (mokinys.galutinis >= 5)
@@ -280,6 +281,9 @@ void eksperimentas(int eiluciu_kiekis)
             silpni_moksluose.push_back(mokinys);
         }
     }
+    auto pabaiga_atskyrimas = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli>
+        atskyrimas_trukme = pabaiga_atskyrimas - pradzia_atskyrimas;
 
     auto pradzia_protingu_irasymas = chrono::high_resolution_clock::now();
     failu_irasymas(protingi, "protingi.txt");
@@ -299,6 +303,7 @@ void eksperimentas(int eiluciu_kiekis)
     cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
     cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
     cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
+    cout << "skirstymas i du sarasus uztruko: " << atskyrimas_trukme.count() << " ms" << endl;
     cout << "silpnuju mokiniu isvedimas i faila uztruko: " << silpnu_irasymas_trukme.count() << " ms" << endl;
     cout << "protingu mokiniu isvedimas i faila uztruko: " << protingu_irasymas_trukme.count() << " ms" << endl;
     cout << "visa trukme: " << bendras_trukme.count() << " ms" << endl;
@@ -310,8 +315,8 @@ void eksperimentas(int eiluciu_kiekis)
 int main()
 {
 
-    vector<int> eksperimentai{1000, 10000, 100000};
-    // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
+    // vector<int> eksperimentai{1000, 10000, 100000};
+    vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
     // negeneruosiu 1000000 ir 10000000 eiluciu failu, nes programa veiks labai letai uzluzti
 
     cout << "Greicio eksperimentai naudojant vector" << endl;
