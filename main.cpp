@@ -97,9 +97,11 @@ vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
     return mokiniai;
 }
 
-vector<Mokinys> duomenu_nuskaitymas_is_failo(string failo_vardas)
+template <class K>
+
+K duomenu_nuskaitymas_is_failo(string failo_vardas)
 {
-    vector<Mokinys> mokiniai;
+    K mokiniai;
 
     // nuskaitome likusias eilutes ir sudedame i mokinio struktura
     // pridedame mokini i mokiniu vektoriu
@@ -183,7 +185,8 @@ void failu_generavimas(int eiluciu_skaicius)
     }
 }
 
-void failu_irasymas(vector<Mokinys> mokiniai, string failo_vardas)
+template <class K>
+void failu_irasymas(K mokiniai, string failo_vardas)
 {
     ofstream failas(failo_vardas);
     if (!failas)
@@ -214,14 +217,15 @@ void failu_irasymas(vector<Mokinys> mokiniai, string failo_vardas)
     }
 }
 
+template <class K>
 void eksperimentas(int eiluciu_kiekis)
 {
     failu_generavimas(eiluciu_kiekis);
-    vector<Mokinys> mokiniai;
+    K mokiniai;
 
     auto pradzia_nuskaitymas = chrono::high_resolution_clock::now();
     auto pradzia_bendras = pradzia_nuskaitymas;
-    mokiniai = duomenu_nuskaitymas_is_failo("mokiniai.txt");
+    mokiniai = duomenu_nuskaitymas_is_failo<K>("mokiniai.txt");
     auto pabaiga_nuskaitymas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
 
@@ -240,8 +244,8 @@ void eksperimentas(int eiluciu_kiekis)
     auto pabaiga_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> galutinio_skaiciavimo_trukme = pabaiga_galutinio_skaiciavimas - pradzia_galutinio_skaiciavimas;
 
-    vector<Mokinys> protingi;
-    vector<Mokinys> silpni_moksluose;
+    K protingi;
+    K silpni_moksluose;
 
     for (int i = 0; i < mokiniai.size(); i++)
     {
@@ -284,11 +288,12 @@ int main()
 {
 
     vector<int> eksperimentai{1000, 10000, 100000};
-    // ateiciai
     // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
+    // negeneruosiu 1000000 ir 10000000 eiluciu failu, nes programa veiks labai letai uzluzti
 
-    for (auto eksperimento_dydis : eksperimentai)
+    for (int eksperimento_dydis : eksperimentai)
     {
-        eksperimentas(eksperimento_dydis);
+
+        eksperimentas<vector<Mokinys>>(eksperimento_dydis);
     }
 }
