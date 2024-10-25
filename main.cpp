@@ -55,7 +55,7 @@ Mokinys nuskaityti_mokinio_duomenis()
     return m;
 }
 
-double skaiciuoti_galutini(Mokinys m, string pasirinkimas)
+double skaiciuoti_galutini(Mokinys &m, const string &pasirinkimas)
 {
     double vid_med = 0;
     if (pasirinkimas == "med")
@@ -186,7 +186,7 @@ void failu_generavimas(int eiluciu_skaicius)
 }
 
 template <class K>
-void failu_irasymas(K mokiniai, string failo_vardas)
+void failu_irasymas(K &mokiniai, string failo_vardas)
 {
     ofstream failas(failo_vardas);
     if (!failas)
