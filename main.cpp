@@ -354,14 +354,25 @@ void sudek_laikus(Laikai &acc, Laikai l)
     acc.bendras_trukmes += l.bendras_trukmes;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    bool nuskaityti_is_klaviaturos = false;
+
+    if (argc > 1 && string(argv[1]) == "--klaviatura")
+    {
+        nuskaityti_is_klaviaturos = true;
+    }
 
     vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt"};
+
+    if (nuskaityti_is_klaviaturos)
+    {
+        auto mokiniai = duomenu_nuskaitymas_is_klaviaturos();
+        failu_irasymas(mokiniai, "mokiniai_klaviatura.txt");
+        eksperimentai = {"mokiniai_klaviatura.txt"};
+    }
+
     const int eksperimento_kartojimai = 2;
-    // vector<int> eksperimentai{1000, 10000, 100000};
-    // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
-    // negeneruosiu 1000000 ir 10000000 eiluciu failu, nes programa veiks labai letai uzluzti
 
     cout << "Greicio eksperimentai naudojant vector" << endl;
     for (string eksperimento_failas : eksperimentai)
