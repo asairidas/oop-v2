@@ -357,7 +357,7 @@ void sudek_laikus(Laikai &acc, Laikai l)
 int main()
 {
 
-    vector<string> eksperimentai{"sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt"};
+    vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt"};
     const int eksperimento_kartojimai = 2;
     // vector<int> eksperimentai{1000, 10000, 100000};
     // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
