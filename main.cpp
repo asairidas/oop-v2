@@ -233,15 +233,25 @@ void rikiuok<list<Mokinys>>(list<Mokinys> &mokiniai)
     mokiniai.sort(mokiniu_palygintojas);
 }
 
-template <class K>
-void eksperimentas(int eiluciu_kiekis)
+struct Laikai
 {
-    failu_generavimas(eiluciu_kiekis);
+    chrono::duration<double, milli> nuskaitymo_trukmes{0};
+    chrono::duration<double, milli> rikiavimo_trukmes{0};
+    chrono::duration<double, milli> galutinio_skaiciavimo_trukmes{0};
+    chrono::duration<double, milli> atskyrimas_trukmes{0};
+    chrono::duration<double, milli> silpnu_irasymas_trukmes{0};
+    chrono::duration<double, milli> protingu_irasymas_trukmes{0};
+    chrono::duration<double, milli> bendras_trukmes{0};
+};
+
+template <class K>
+Laikai eksperimentas(string eksperimento_failas)
+{
     K mokiniai;
 
     auto pradzia_nuskaitymas = chrono::high_resolution_clock::now();
     auto pradzia_bendras = pradzia_nuskaitymas;
-    mokiniai = duomenu_nuskaitymas_is_failo<K>("mokiniai.txt");
+    mokiniai = duomenu_nuskaitymas_is_failo<K>(eksperimento_failas);
     auto pabaiga_nuskaitymas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
 
@@ -298,36 +308,87 @@ void eksperimentas(int eiluciu_kiekis)
     auto pabaiga_bendras = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> bendras_trukme = pabaiga_bendras - pradzia_bendras;
 
-    cout << "---------[ Programos greicio analize - " << eiluciu_kiekis << " eiluciu ]---------" << endl
-         << endl;
-    cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
-    cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
-    cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
-    cout << "skirstymas i du sarasus uztruko: " << atskyrimas_trukme.count() << " ms" << endl;
-    cout << "silpnuju mokiniu isvedimas i faila uztruko: " << silpnu_irasymas_trukme.count() << " ms" << endl;
-    cout << "protingu mokiniu isvedimas i faila uztruko: " << protingu_irasymas_trukme.count() << " ms" << endl;
-    cout << "visa trukme: " << bendras_trukme.count() << " ms" << endl;
+    Laikai laikai;
+    laikai.nuskaitymo_trukmes = nuskaitymo_trukme;
+    laikai.rikiavimo_trukmes = rikiavimo_trukme;
+    laikai.galutinio_skaiciavimo_trukmes = galutinio_skaiciavimo_trukme;
+    laikai.atskyrimas_trukmes = atskyrimas_trukme;
+    laikai.silpnu_irasymas_trukmes = silpnu_irasymas_trukme;
+    laikai.protingu_irasymas_trukmes = protingu_irasymas_trukme;
+    laikai.bendras_trukmes = bendras_trukme;
+    return laikai;
 
-    cout << endl
-         << endl;
+    // cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << "]---------" << endl
+    //      << endl;
+    // cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
+    // cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
+    // cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
+    // cout << "skirstymas i du sarasus uztruko: " << atskyrimas_trukme.count() << " ms" << endl;
+    // cout << "silpnuju mokiniu isvedimas i faila uztruko: " << silpnu_irasymas_trukme.count() << " ms" << endl;
+    // cout << "protingu mokiniu isvedimas i faila uztruko: " << protingu_irasymas_trukme.count() << " ms" << endl;
+    // cout << "visa trukme: " << bendras_trukme.count() << " ms" << endl;
+
+    // cout << endl
+    //      << endl;
+}
+
+void spausdink_laikus(Laikai laikai, int eksperimento_kartojimai)
+{
+    cout << "failo nuskaitymas uztruko: " << laikai.nuskaitymo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "rikiavimas uztruko: " << laikai.rikiavimo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "galutiniu pazymiu skaiciavimas uztruko: " << laikai.galutinio_skaiciavimo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "skirstymas i du sarasus uztruko: " << laikai.atskyrimas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "silpnuju mokiniu isvedimas i faila uztruko: " << laikai.silpnu_irasymas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "protingu mokiniu isvedimas i faila uztruko: " << laikai.protingu_irasymas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "visa trukme: " << laikai.bendras_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+}
+
+void sudek_laikus(Laikai &acc, Laikai l)
+{
+    acc.nuskaitymo_trukmes += l.nuskaitymo_trukmes;
+    acc.rikiavimo_trukmes += l.rikiavimo_trukmes;
+    acc.galutinio_skaiciavimo_trukmes += l.galutinio_skaiciavimo_trukmes;
+    acc.atskyrimas_trukmes += l.atskyrimas_trukmes;
+    acc.silpnu_irasymas_trukmes += l.silpnu_irasymas_trukmes;
+    acc.protingu_irasymas_trukmes += l.protingu_irasymas_trukmes;
+    acc.bendras_trukmes += l.bendras_trukmes;
 }
 
 int main()
 {
 
+    vector<string> eksperimentai{"sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt"};
+    const int eksperimento_kartojimai = 2;
     // vector<int> eksperimentai{1000, 10000, 100000};
-    vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
+    // vector<int> eksperimentai{1000, 10000, 100000, 1000000, 10000000};
     // negeneruosiu 1000000 ir 10000000 eiluciu failu, nes programa veiks labai letai uzluzti
 
     cout << "Greicio eksperimentai naudojant vector" << endl;
-    for (int eksperimento_dydis : eksperimentai)
+    for (string eksperimento_failas : eksperimentai)
     {
-        eksperimentas<vector<Mokinys>>(eksperimento_dydis);
+        Laikai laikai;
+        for (int i = 0; i < eksperimento_kartojimai; i++)
+        {
+            auto l = eksperimentas<vector<Mokinys>>(eksperimento_failas);
+            sudek_laikus(laikai, l);
+        }
+
+        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << eksperimento_kartojimai << " kartus ]---------" << endl
+             << endl;
+        spausdink_laikus(laikai, eksperimento_kartojimai);
     }
 
     cout << "Greicio eksperimentai naudojant list" << endl;
-    for (int eksperimento_dydis : eksperimentai)
+    for (string eksperimento_failas : eksperimentai)
     {
-        eksperimentas<list<Mokinys>>(eksperimento_dydis);
+        Laikai laikai;
+        for (int i = 0; i < eksperimento_kartojimai; i++)
+        {
+            auto l = eksperimentas<list<Mokinys>>(eksperimento_failas);
+            sudek_laikus(laikai, l);
+        }
+        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << eksperimento_kartojimai << " kartus ]---------" << endl
+             << endl;
+        spausdink_laikus(laikai, eksperimento_kartojimai);
     }
 }
