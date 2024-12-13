@@ -9,15 +9,29 @@
 #include <fstream>
 #include <iterator>
 #include <chrono>
+#include <stdexcept>
+#include <numeric>
+#include <random>
+#include <filesystem>
 
 #include "mokinys.h"
 #include "statistika.h"
 
 using namespace std;
+namespace fs = std::filesystem;
+
+int generuoti_atsitiktini_pazymi()
+{
+    static random_device rd;
+    static mt19937 mt(rd());
+    static uniform_int_distribution<int> pazymiu_generavimas(1, 10);
+    return pazymiu_generavimas(mt);
+}
 
 Mokinys nuskaityti_mokinio_duomenis()
 {
     Mokinys m;
+
     cout << "Iveskite varda:" << endl;
     cin >> m.vardas;
     cout << "Ivedete varda " << m.vardas << endl;
@@ -34,7 +48,7 @@ Mokinys nuskaityti_mokinio_duomenis()
         // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
         if (pazymys == 0)
         {
-            pazymys = rand() % 10 + 1;
+            pazymys = generuoti_atsitiktini_pazymi();
             cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
         }
         m.namu_darbu_rezultatai.push_back(pazymys);
@@ -46,12 +60,12 @@ Mokinys nuskaityti_mokinio_duomenis()
     // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
     if (m.egzamino_rezultatas == 0)
     {
-        m.egzamino_rezultatas = rand() % 10 + 1;
+        m.egzamino_rezultatas = generuoti_atsitiktini_pazymi();
         cout << "Sugeneruotas atsitiktinis pazymys: " << m.egzamino_rezultatas << endl;
     }
 
     cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
-
+    cout << "Mokinio objektas saugomas atmintyje adresu: " << &m << endl;
     return m;
 }
 
@@ -155,7 +169,7 @@ bool mokiniu_palygintojas(const Mokinys &kairys, const Mokinys &desinys)
     }
     return kairys.pavarde < desinys.pavarde;
 }
-
+/*
 // sukursiu funkcija, kuri sugeneruos faila su atsitiktiniais duomenimis
 void failu_generavimas(int eiluciu_skaicius)
 {
@@ -179,15 +193,20 @@ void failu_generavimas(int eiluciu_skaicius)
         failas << "vardas" << i << " pavarde" << i << " ";
         for (int j = 0; j < 15; j++)
         {
-            failas << rand() % 10 + 1 << " ";
+            failas << generuoti_atsitiktini_pazymi() << " ";
         }
-        failas << rand() % 10 + 1 << endl;
+        failas << generuoti_atsitiktini_pazymi() << endl;
     }
 }
-
+*/
 template <class K>
 void failu_irasymas(K &mokiniai, string failo_vardas)
 {
+    if (mokiniai.empty())
+    {
+        cerr << "Mokinių sąrašas yra tuščias." << endl;
+        return;
+    }
     ofstream failas(failo_vardas);
     if (!failas)
     {
@@ -217,18 +236,17 @@ void failu_irasymas(K &mokiniai, string failo_vardas)
     }
 }
 
-// naudojame nuoroda, kad nedarytume kopijos
 template <class K>
-void rikiuok(K &mokiniai);
+void rusiuok(K &mokiniai);
 
 template <>
-void rikiuok<vector<Mokinys>>(vector<Mokinys> &mokiniai)
+void rusiuok<vector<Mokinys>>(vector<Mokinys> &mokiniai)
 {
     sort(mokiniai.begin(), mokiniai.end(), mokiniu_palygintojas);
 }
 
 template <>
-void rikiuok<list<Mokinys>>(list<Mokinys> &mokiniai)
+void rusiuok<list<Mokinys>>(list<Mokinys> &mokiniai)
 {
     mokiniai.sort(mokiniu_palygintojas);
 }
@@ -256,7 +274,7 @@ Laikai eksperimentas(string eksperimento_failas)
     chrono::duration<double, milli> nuskaitymo_trukme = pabaiga_nuskaitymas - pradzia_nuskaitymas;
 
     auto pradzia_rikiavimas = chrono::high_resolution_clock::now();
-    rikiuok(mokiniai);
+    rusiuok(mokiniai);
     auto pabaiga_rikiavimas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> rikiavimo_trukme = pabaiga_rikiavimas - pradzia_rikiavimas;
 
@@ -321,7 +339,7 @@ Laikai eksperimentas(string eksperimento_failas)
     // cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << "]---------" << endl
     //      << endl;
     // cout << "failo nuskaitymas uztruko: " << nuskaitymo_trukme.count() << " ms" << endl;
-    // cout << "rikiavimas uztruko: " << rikiavimo_trukme.count() << " ms" << endl;
+    // cout << "rusiavimas uztruko: " << rusiavimo_trukme.count() << " ms" << endl;
     // cout << "galutiniu pazymiu skaiciavimas uztruko: " << galutinio_skaiciavimo_trukme.count() << " ms" << endl;
     // cout << "skirstymas i du sarasus uztruko: " << atskyrimas_trukme.count() << " ms" << endl;
     // cout << "silpnuju mokiniu isvedimas i faila uztruko: " << silpnu_irasymas_trukme.count() << " ms" << endl;
@@ -332,26 +350,26 @@ Laikai eksperimentas(string eksperimento_failas)
     //      << endl;
 }
 
-void spausdink_laikus(Laikai laikai, int eksperimento_kartojimai)
+void spausdinti_laikus(Laikai laikai, int eksperimento_kartojimai)
 {
     cout << "failo nuskaitymas uztruko: " << laikai.nuskaitymo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
-    cout << "rikiavimas uztruko: " << laikai.rikiavimo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "rusiavimas uztruko: " << laikai.rikiavimo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
     cout << "galutiniu pazymiu skaiciavimas uztruko: " << laikai.galutinio_skaiciavimo_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
-    cout << "skirstymas i du sarasus uztruko: " << laikai.atskyrimas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
+    cout << "skirstymas i dvi grupes uztruko: " << laikai.atskyrimas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
     cout << "silpnuju mokiniu isvedimas i faila uztruko: " << laikai.silpnu_irasymas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
     cout << "protingu mokiniu isvedimas i faila uztruko: " << laikai.protingu_irasymas_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
     cout << "visa trukme: " << laikai.bendras_trukmes.count() / eksperimento_kartojimai << " ms" << endl;
 }
 
-void sudek_laikus(Laikai &acc, Laikai l)
+void laiku_suma(Laikai &suma, Laikai l)
 {
-    acc.nuskaitymo_trukmes += l.nuskaitymo_trukmes;
-    acc.rikiavimo_trukmes += l.rikiavimo_trukmes;
-    acc.galutinio_skaiciavimo_trukmes += l.galutinio_skaiciavimo_trukmes;
-    acc.atskyrimas_trukmes += l.atskyrimas_trukmes;
-    acc.silpnu_irasymas_trukmes += l.silpnu_irasymas_trukmes;
-    acc.protingu_irasymas_trukmes += l.protingu_irasymas_trukmes;
-    acc.bendras_trukmes += l.bendras_trukmes;
+    suma.nuskaitymo_trukmes += l.nuskaitymo_trukmes;
+    suma.rikiavimo_trukmes += l.rikiavimo_trukmes;
+    suma.galutinio_skaiciavimo_trukmes += l.galutinio_skaiciavimo_trukmes;
+    suma.atskyrimas_trukmes += l.atskyrimas_trukmes;
+    suma.silpnu_irasymas_trukmes += l.silpnu_irasymas_trukmes;
+    suma.protingu_irasymas_trukmes += l.protingu_irasymas_trukmes;
+    suma.bendras_trukmes += l.bendras_trukmes;
 }
 
 int main(int argc, char *argv[])
@@ -363,7 +381,7 @@ int main(int argc, char *argv[])
         nuskaityti_is_klaviaturos = true;
     }
 
-    vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt"};
+    vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
 
     if (nuskaityti_is_klaviaturos)
     {
@@ -381,12 +399,16 @@ int main(int argc, char *argv[])
         for (int i = 0; i < eksperimento_kartojimai; i++)
         {
             auto l = eksperimentas<vector<Mokinys>>(eksperimento_failas);
-            sudek_laikus(laikai, l);
+            laiku_suma(laikai, l);
+
+            cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << i + 1 << " is " << eksperimento_kartojimai << " ]---------" << endl
+                 << endl;
+            spausdinti_laikus(l, 1);
         }
 
-        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << eksperimento_kartojimai << " kartus ]---------" << endl
+        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << ". Vidutiniai laikai  ]---------" << endl
              << endl;
-        spausdink_laikus(laikai, eksperimento_kartojimai);
+        spausdinti_laikus(laikai, eksperimento_kartojimai);
     }
 
     cout << "Greicio eksperimentai naudojant list" << endl;
@@ -396,10 +418,19 @@ int main(int argc, char *argv[])
         for (int i = 0; i < eksperimento_kartojimai; i++)
         {
             auto l = eksperimentas<list<Mokinys>>(eksperimento_failas);
-            sudek_laikus(laikai, l);
+            laiku_suma(laikai, l);
+            cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << i + 1 << " is " << eksperimento_kartojimai << " ]---------" << endl
+                 << endl;
+            spausdinti_laikus(l, 1);
         }
-        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << eksperimento_kartojimai << " kartus ]---------" << endl
+        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << ". Vidutiniai laikai  ]---------" << endl
              << endl;
-        spausdink_laikus(laikai, eksperimento_kartojimai);
+        spausdinti_laikus(laikai, eksperimento_kartojimai);
     }
 }
+
+/*
+CPU lscpu
+RAM free -h
+HDD lsblk
+*/

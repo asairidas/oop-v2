@@ -1,16 +1,14 @@
-# oop-v1
 
-Pagrindinis programos failas yra **main.cpp**
 
 ![greicio palyginimas](paveiksliukai/palyginimas.png)
 
-Procesorius: AMD Ryzen 5 6600H, 12 CPUs, ~3.3GHz
+Procesorius(CPU): AMD Ryzen 5 6600H, 12 CPUs
 
 
-Atmintis: 16GB RAM
+Atmintis(RAM): 7.4 GB RAM
 
 
-Kietas Diskas: SSD
+Kietas Diskas(HDD): HDD
 
 
 
