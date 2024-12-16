@@ -3,16 +3,31 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
-using namespace std;
+#include "statistika.h"
 
-struct Mokinys
+class Studentas
 {
-    string vardas;
-    string pavarde;
-    vector<int> namu_darbu_rezultatai;
-    int egzamino_rezultatas{0};
-    double galutinis{0};
+private:
+    std::string vardas_;
+    std::string pavarde_;
+    double egzaminas_;
+    std::vector<double> nd_;
+
+public:
+    Studentas() : egzaminas_(0) {} // default constructor
+    Studentas(std::istream &is);
+
+    inline std::string vardas() const { return vardas_; }
+    inline std::string pavarde() const { return pavarde_; }
+    double galBalas(double (*)(std::vector<double>) = skaiciuoti_mediana) const;
+
+    std::istream &readStudent(std::istream &); // setters
 };
+
+bool compare(const Studentas &, const Studentas &);
+bool comparePagalPavarde(const Studentas &, const Studentas &);
+bool comparePagalEgza(const Studentas &, const Studentas &);
 
 #endif
