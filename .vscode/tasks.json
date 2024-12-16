@@ -9,6 +9,7 @@
                 "-O3",
                 "main.cpp",
                 "statistika.cpp",
+                "mokinys.cpp",
                 "-o",
                 "main"
             ],
@@ -26,6 +27,7 @@
                 "-g",
                 "main.cpp",
                 "statistika.cpp",
+                "mokinys.cpp",
                 "-o",
                 "main"
             ],
