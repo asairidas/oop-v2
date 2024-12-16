@@ -28,89 +28,86 @@ int generuoti_atsitiktini_pazymi()
     return pazymiu_generavimas(mt);
 }
 
-Mokinys nuskaityti_mokinio_duomenis()
-{
-    Mokinys m;
+// Mokinys nuskaityti_mokinio_duomenis()
+// {
+//     Mokinys m;
 
-    cout << "Iveskite varda:" << endl;
-    cin >> m.vardas;
-    cout << "Ivedete varda " << m.vardas << endl;
-    cout << "Iveskite pavarde" << endl;
-    cin >> m.pavarde;
-    cout << "Ivedete pavarde " << m.pavarde << endl;
+//     cout << "Iveskite varda:" << endl;
+//     cin >> m.vardas;
+//     cout << "Ivedete varda " << m.vardas << endl;
+//     cout << "Iveskite pavarde" << endl;
+//     cin >> m.pavarde;
+//     cout << "Ivedete pavarde " << m.pavarde << endl;
 
-    string str_pazymys;
-    cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete). Jei ivesite 0, bus sugeneruotas atsitiktinis balas: ";
-    cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
-    while (getline(cin, str_pazymys) && !str_pazymys.empty())
-    {
-        int pazymys = stoi(str_pazymys);
-        // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
-        if (pazymys == 0)
-        {
-            pazymys = generuoti_atsitiktini_pazymi();
-            cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
-        }
-        m.namu_darbu_rezultatai.push_back(pazymys);
-        cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
-    }
+//     string str_pazymys;
+//     cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete). Jei ivesite 0, bus sugeneruotas atsitiktinis balas: ";
+//     cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
+//     while (getline(cin, str_pazymys) && !str_pazymys.empty())
+//     {
+//         int pazymys = stoi(str_pazymys);
+//         // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+//         if (pazymys == 0)
+//         {
+//             pazymys = generuoti_atsitiktini_pazymi();
+//             cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
+//         }
+//         m.namu_darbu_rezultatai.push_back(pazymys);
+//         cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
+//     }
 
-    cout << "Iveskite egzamino rezultata. Jei ivesite 0, bus sugeneruotas atsitiktinis balas:" << endl;
-    cin >> m.egzamino_rezultatas;
-    // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
-    if (m.egzamino_rezultatas == 0)
-    {
-        m.egzamino_rezultatas = generuoti_atsitiktini_pazymi();
-        cout << "Sugeneruotas atsitiktinis pazymys: " << m.egzamino_rezultatas << endl;
-    }
+//     cout << "Iveskite egzamino rezultata. Jei ivesite 0, bus sugeneruotas atsitiktinis balas:" << endl;
+//     cin >> m.egzamino_rezultatas;
+//     // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+//     if (m.egzamino_rezultatas == 0)
+//     {
+//         m.egzamino_rezultatas = generuoti_atsitiktini_pazymi();
+//         cout << "Sugeneruotas atsitiktinis pazymys: " << m.egzamino_rezultatas << endl;
+//     }
 
-    cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
-    cout << "Mokinio objektas saugomas atmintyje adresu: " << &m << endl;
-    return m;
-}
+//     cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
+//     cout << "Mokinio objektas saugomas atmintyje adresu: " << &m << endl;
+//     return m;
+// }
 
 double skaiciuoti_galutini(Mokinys &m, const string &pasirinkimas)
 {
-    double vid_med = 0;
     if (pasirinkimas == "med")
     {
-        vid_med = skaiciuoti_mediana(m);
+        return m.galBalas(skaiciuoti_mediana);
     }
     else
     {
-        vid_med = skaiciuoti_vidurki(m);
+        return m.galBalas(skaiciuoti_vidurki);
     }
-    double galutinis = 0.4 * vid_med + 0.6 * m.egzamino_rezultatas;
-    return galutinis;
 }
 
-vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
-{
-    int studentu_skaicius(0);
-    while (true)
-    {
-        cout << "Iveskite studentu skaiciu" << endl;
-        cin >> studentu_skaicius;
-        if (studentu_skaicius <= 0)
-        {
-            cerr << "Studentų skaičius turi būti teigiamas sveikasis skaičius." << endl;
-            continue; // prasykime vartotoja ivesti teisinga skaiciu
-        }
-        else
-        {
-            break; // jei skaicius teigiamas, nutraukime cikla
-        }
-    }
+// vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
+// {
+//     int studentu_skaicius(0);
+//     while (true)
+//     {
+//         cout << "Iveskite studentu skaiciu" << endl;
+//         cin >> studentu_skaicius;
+//         if (studentu_skaicius <= 0)
+//         {
+//             cerr << "Studentų skaičius turi būti teigiamas sveikasis skaičius." << endl;
+//             continue; // prasykime vartotoja ivesti teisinga skaiciu
+//         }
+//         else
+//         {
+//             break; // jei skaicius teigiamas, nutraukime cikla
+//         }
+//     }
 
-    vector<Mokinys> mokiniai;
+//     vector<Mokinys> mokiniai;
 
-    for (int k = 0; k < studentu_skaicius; ++k)
-    {
-        Mokinys m = nuskaityti_mokinio_duomenis();
-        mokiniai.push_back(m);
-    }
-    return mokiniai;
-}
+//     for (int k = 0; k < studentu_skaicius; ++k)
+//     {
+//         Mokinys m = nuskaityti_mokinio_duomenis();
+//         mokiniai.push_back(m);
+//     }
+//     return mokiniai;
+// }
 
 template <class K>
 K duomenu_nuskaitymas_is_failo(string failo_vardas)
@@ -144,16 +141,9 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
 
     while (getline(ivedimo_failas, eilute))
     {
-        istringstream iss(eilute);
-        Mokinys m;
-        iss >> m.vardas >> m.pavarde;
-        for (int i = 0; i < namu_darbu_kiekis; ++i)
-        {
-            int pazymys;
-            iss >> pazymys;
-            m.namu_darbu_rezultatai.push_back(pazymys);
-        }
-        iss >> m.egzamino_rezultatas;
+        // turn the string into ifstream
+        istringstream eilute_stream(eilute);
+        auto m = Mokinys(eilute_stream);
         mokiniai.push_back(m);
     }
 
@@ -163,42 +153,13 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
 
 bool mokiniu_palygintojas(const Mokinys &kairys, const Mokinys &desinys)
 {
-    if (kairys.pavarde == desinys.pavarde)
+    if (kairys.pavarde() == desinys.pavarde())
     {
-        return kairys.vardas < desinys.vardas;
+        return kairys.vardas() < desinys.vardas();
     }
-    return kairys.pavarde < desinys.pavarde;
+    return kairys.pavarde() < desinys.pavarde();
 }
-/*
-// sukursiu funkcija, kuri sugeneruos faila su atsitiktiniais duomenimis
-void failu_generavimas(int eiluciu_skaicius)
-{
-    ofstream failas("mokiniai.txt");
-    if (!failas)
-    {
-        cerr << "Nepavyko sukurti failo mokiniai.txt" << endl;
-        return;
-    }
 
-    // irasom pirma eilute
-    failas << "Vardas Pavarde ";
-    for (int i = 1; i <= 15; i++)
-    {
-        failas << "ND" << i << " ";
-    }
-    failas << "Egz." << endl;
-
-    for (int i = 0; i < eiluciu_skaicius; i++)
-    {
-        failas << "vardas" << i << " pavarde" << i << " ";
-        for (int j = 0; j < 15; j++)
-        {
-            failas << generuoti_atsitiktini_pazymi() << " ";
-        }
-        failas << generuoti_atsitiktini_pazymi() << endl;
-    }
-}
-*/
 template <class K>
 void failu_irasymas(K &mokiniai, string failo_vardas)
 {
@@ -217,7 +178,7 @@ void failu_irasymas(K &mokiniai, string failo_vardas)
     // irasom pirma eilute
     failas << "Vardas Pavarde ";
 
-    auto pazymiu_kiekis = mokiniai.front().namu_darbu_rezultatai.size();
+    auto pazymiu_kiekis = mokiniai.front().ndSize();
 
     for (int i = 1; i <= pazymiu_kiekis; i++)
     {
@@ -227,12 +188,7 @@ void failu_irasymas(K &mokiniai, string failo_vardas)
 
     for (auto mokinys : mokiniai)
     {
-        failas << mokinys.vardas << " " << mokinys.pavarde << " ";
-        for (auto pazymys : mokinys.namu_darbu_rezultatai)
-        {
-            failas << pazymys << " ";
-        }
-        failas << mokinys.egzamino_rezultatas << endl;
+        failas << mokinys;
     }
 }
 
@@ -383,12 +339,12 @@ int main(int argumentu_sk, char *argv[])
 
     vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
 
-    if (nuskaityti_is_klaviaturos)
-    {
-        auto mokiniai = duomenu_nuskaitymas_is_klaviaturos();
-        failu_irasymas(mokiniai, "mokiniai_klaviatura.txt");
-        eksperimentai = {"mokiniai_klaviatura.txt"};
-    }
+    // if (nuskaityti_is_klaviaturos)
+    // {
+    //     auto mokiniai = duomenu_nuskaitymas_is_klaviaturos();
+    //     failu_irasymas(mokiniai, "mokiniai_klaviatura.txt");
+    //     eksperimentai = {"mokiniai_klaviatura.txt"};
+    // }
 
     const int eksperimento_kartojimai = 2;
 

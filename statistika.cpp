@@ -1,37 +1,37 @@
 #include <algorithm>
 #include "mokinys.h"
 
-double skaiciuoti_vidurki(Mokinys &m)
+double skaiciuoti_vidurki(std::vector<double> pazymiai)
 {
     // jeigu pazymiu nera grazina 0
-    if (m.namu_darbu_rezultatai.size() == 0)
+    if (pazymiai.size() == 0)
     {
         return 0;
     }
 
     double nd_suma = 0;
     double vidurkis = 0;
-    for (int j = 0; j < m.namu_darbu_rezultatai.size(); j++)
+    for (int j = 0; j < pazymiai.size(); j++)
     {
-        nd_suma += m.namu_darbu_rezultatai[j];
+        nd_suma += pazymiai[j];
     }
-    vidurkis = nd_suma / m.namu_darbu_rezultatai.size();
+    vidurkis = nd_suma / pazymiai.size();
     return vidurkis;
 }
 
-double skaiciuoti_mediana(Mokinys &m)
+double skaiciuoti_mediana(std::vector<double> pazymiai)
 {
     double mediana = 0;
-    sort(m.namu_darbu_rezultatai.begin(), m.namu_darbu_rezultatai.end());
-    if (m.namu_darbu_rezultatai.size() % 2 == 0)
+    sort(pazymiai.begin(), pazymiai.end());
+    if (pazymiai.size() % 2 == 0)
     {
-        auto pirmas = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2 - 1];
-        auto antras = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2];
+        auto pirmas = pazymiai[pazymiai.size() / 2 - 1];
+        auto antras = pazymiai[pazymiai.size() / 2];
         mediana = (pirmas + antras) / 2.0;
     }
     else
     {
-        mediana = m.namu_darbu_rezultatai[m.namu_darbu_rezultatai.size() / 2];
+        mediana = pazymiai[pazymiai.size() / 2];
     }
     return mediana;
 }

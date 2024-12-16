@@ -1,5 +1,4 @@
-#ifndef MOKINYS_CPP
-#define MOKINYS_CPP
+
 #include "mokinys.h"
 #include "statistika.h"
 
@@ -21,9 +20,6 @@ Mokinys::Mokinys(std::istream &is)
     readStudent(is);
 }
 
-inline std::string Mokinys::vardas() const { return vardas_; }   // getters, inline
-inline std::string Mokinys::pavarde() const { return pavarde_; } // getters, inline
-
 double Mokinys::galBalas(double (*func)(std::vector<double>) = skaiciuoti_mediana) const
 {
     return func(nd_) * 0.4 + egzaminas_ * 0.6;
@@ -43,5 +39,3 @@ bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
 {
     return a.galBalas() < b.galBalas();
 }
-
-#endif MOKINYS_CPP

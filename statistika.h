@@ -2,7 +2,7 @@
 #define statistika_h
 #include "mokinys.h"
 
-double skaiciuoti_vidurki(Mokinys &m);
-double skaiciuoti_mediana(Mokinys &m);
+double skaiciuoti_vidurki(std::vector<double>);
+double skaiciuoti_mediana(std::vector<double>);
 
 #endif
