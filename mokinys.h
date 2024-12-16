@@ -17,7 +17,7 @@ private:
 
 public:
     Studentas() : egzaminas_(0) {} // default constructor
-    Studentas(std::istream &is);
+    Studentas(std::istream &);
 
     inline std::string vardas() const { return vardas_; }
     inline std::string pavarde() const { return pavarde_; }
