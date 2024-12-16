@@ -372,11 +372,11 @@ void laiku_suma(Laikai &suma, Laikai l)
     suma.bendras_trukmes += l.bendras_trukmes;
 }
 
-int main(int argc, char *argv[])
+int main(int argumentu_sk, char *argv[])
 {
     bool nuskaityti_is_klaviaturos = false;
 
-    if (argc > 1 && string(argv[1]) == "--klaviatura")
+    if (argumentu_sk > 1 && string(argv[1]) == "--klaviatura")
     {
         nuskaityti_is_klaviaturos = true;
     }
