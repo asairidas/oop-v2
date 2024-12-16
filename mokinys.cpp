@@ -3,7 +3,7 @@
 #include "mokinys.h"
 #include "statistika.h"
 
-std::istream &Studentas::readStudent(std::istream &is)
+std::istream &Mokinys::readStudent(std::istream &is)
 {
     is >> vardas_ >> pavarde_;
     double nd_pazymys;
@@ -16,30 +16,30 @@ std::istream &Studentas::readStudent(std::istream &is)
     return is;
 }
 
-Studentas::Studentas(std::istream &is)
+Mokinys::Mokinys(std::istream &is)
 {
     readStudent(is);
 }
 
-inline std::string Studentas::vardas() const { return vardas_; }   // getters, inline
-inline std::string Studentas::pavarde() const { return pavarde_; } // getters, inline
+inline std::string Mokinys::vardas() const { return vardas_; }   // getters, inline
+inline std::string Mokinys::pavarde() const { return pavarde_; } // getters, inline
 
-double Studentas::galBalas(double (*func)(std::vector<double>) = skaiciuoti_mediana) const
+double Mokinys::galBalas(double (*func)(std::vector<double>) = skaiciuoti_mediana) const
 {
     return func(nd_) * 0.4 + egzaminas_ * 0.6;
 }
 
-bool compare(const Studentas &a, const Studentas &b)
+bool compare(const Mokinys &a, const Mokinys &b)
 {
     return a.vardas() < b.vardas();
 }
 
-bool comparePagalPavarde(const Studentas &a, const Studentas &b)
+bool comparePagalPavarde(const Mokinys &a, const Mokinys &b)
 {
     return a.pavarde() < b.pavarde();
 }
 
-bool comparePagalEgza(const Studentas &a, const Studentas &b)
+bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
 {
     return a.galBalas() < b.galBalas();
 }
