@@ -42,7 +42,6 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "detail": "Generated task by GitHub Copilot"
         },
         {
             "label": "build",
@@ -60,7 +59,6 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "detail": "Generated task by GitHub Copilot"
         },
         {
             "type": "cppbuild",

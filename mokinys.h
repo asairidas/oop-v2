@@ -37,6 +37,13 @@ public:
 
     std::istream &readStudent(std::istream &); // setters
 
+    
+
+    friend std::istream &operator>>(std::istream &is, Mokinys &m)
+    {
+        return m.readStudent(is);
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Mokinys &m)
     {
         os << m.vardas_ << " " << m.pavarde_ << " ";

@@ -81,33 +81,34 @@ double skaiciuoti_galutini(Mokinys &m, const string &pasirinkimas)
     }
 }
 
-// vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
-// {
-//     int studentu_skaicius(0);
-//     while (true)
-//     {
-//         cout << "Iveskite studentu skaiciu" << endl;
-//         cin >> studentu_skaicius;
-//         if (studentu_skaicius <= 0)
-//         {
-//             cerr << "Studentų skaičius turi būti teigiamas sveikasis skaičius." << endl;
-//             continue; // prasykime vartotoja ivesti teisinga skaiciu
-//         }
-//         else
-//         {
-//             break; // jei skaicius teigiamas, nutraukime cikla
-//         }
-//     }
+vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
+{
+    int studentu_skaicius(0);
+    while (true)
+    {
+        cout << "Iveskite studentu skaiciu" << endl;
+        cin >> studentu_skaicius;
+        if (studentu_skaicius <= 0)
+        {
+            cerr << "Studentų skaičius turi būti teigiamas sveikasis skaičius." << endl;
+            continue; // prasykime vartotoja ivesti teisinga skaiciu
+        }
+        else
+        {
+            break; // jei skaicius teigiamas, nutraukime cikla
+        }
+    }
 
-//     vector<Mokinys> mokiniai;
+    vector<Mokinys> mokiniai;
 
-//     for (int k = 0; k < studentu_skaicius; ++k)
-//     {
-//         Mokinys m = nuskaityti_mokinio_duomenis();
-//         mokiniai.push_back(m);
-//     }
-//     return mokiniai;
-// }
+    for (int k = 0; k < studentu_skaicius; ++k)
+    {
+        Mokinys m;
+        cin >> m;
+        mokiniai.push_back(m);
+    }
+    return mokiniai;
+}
 
 template <class K>
 K duomenu_nuskaitymas_is_failo(string failo_vardas)
@@ -144,6 +145,7 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
         // turn the string into ifstream
         istringstream eilute_stream(eilute);
         auto m = Mokinys(eilute_stream);
+        eilute_stream >> m;
         mokiniai.push_back(m);
     }
 
@@ -256,7 +258,7 @@ Laikai eksperimentas(string eksperimento_failas)
     auto pradzia_atskyrimas = chrono::high_resolution_clock::now();
     for (auto mokinys : mokiniai)
     {
-        if (mokinys.galutinis >= 5)
+        if (mokinys.galBalas(skaiciuoti_vidurki) >= 5)
         {
             protingi.push_back(mokinys);
         }
@@ -339,12 +341,13 @@ int main(int argumentu_sk, char *argv[])
 
     vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
 
-    // if (nuskaityti_is_klaviaturos)
-    // {
-    //     auto mokiniai = duomenu_nuskaitymas_is_klaviaturos();
-    //     failu_irasymas(mokiniai, "mokiniai_klaviatura.txt");
-    //     eksperimentai = {"mokiniai_klaviatura.txt"};
-    // }
+    if (nuskaityti_is_klaviaturos)
+    {
+        cout << "skaitom is klaviaturs" << endl;
+        auto mokiniai = duomenu_nuskaitymas_is_klaviaturos();
+        failu_irasymas(mokiniai, "mokiniai_klaviatura.txt");
+        eksperimentai = {"mokiniai_klaviatura.txt"};
+    }
 
     const int eksperimento_kartojimai = 2;
 
