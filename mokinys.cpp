@@ -39,3 +39,15 @@ bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
 {
     return a.galBalas() < b.galBalas();
 }
+
+Mokinys &Mokinys::operator=(const Mokinys &m)
+{
+    if (this != &m)
+    {
+        vardas_ = m.vardas_;
+        pavarde_ = m.pavarde_;
+        egzaminas_ = m.egzaminas_;
+        nd_ = m.nd_;
+    }
+    return *this;
+}
