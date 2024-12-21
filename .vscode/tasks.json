@@ -1,17 +1,42 @@
 {
     "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "optimizationLevel",
+            "type": "pickString",
+            "description": "Choose the optimization level",
+            "options": [
+                {
+                    "value": "O0",
+                    "label": "O0"
+                },
+                {
+                    "value": "O1",
+                    "label": "O1"
+                },
+                {
+                    "value": "O2",
+                    "label": "O2"
+                },
+                {
+                    "value": "O3",
+                    "label": "O3"
+                }
+            ]
+        }
+    ],
     "tasks": [
         {
             "label": "build_prod",
             "type": "shell",
             "command": "g++",
             "args": [
-                "-O3",
+                "-${input:optimizationLevel}",
                 "main.cpp",
                 "statistika.cpp",
                 "mokinys.cpp",
                 "-o",
-                "main"
+                "main_${input:optimizationLevel}"
             ],
             "group": "build",
             "problemMatcher": [
