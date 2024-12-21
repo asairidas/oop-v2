@@ -21,6 +21,14 @@ public:
     Mokinys() : egzaminas_(0), galutinis(0) {}; // defult constructor
     Mokinys(std::istream &);
 
+    // copy constructor
+
+    inline Mokinys(const Mokinys &m) : vardas_(m.vardas_), pavarde_(m.pavarde_), egzaminas_(m.egzaminas_), nd_(m.nd_) {}
+    inline ~Mokinys() {} // destruktorius
+
+    // copy assignment operator
+    Mokinys &operator=(const Mokinys &m);
+
     inline std::string vardas() const { return vardas_; }
     inline std::string pavarde() const { return pavarde_; }
     double galBalas(double (*)(std::vector<double>)) const;
@@ -28,7 +36,6 @@ public:
     inline int ndSize() const { return nd_.size(); }
 
     std::istream &readStudent(std::istream &); // setters
-    // funkcija rasymui i faila
 
     friend std::ostream &operator<<(std::ostream &os, const Mokinys &m)
     {
