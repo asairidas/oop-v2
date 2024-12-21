@@ -256,7 +256,7 @@ Laikai eksperimentas(string eksperimento_failas)
     auto pradzia_atskyrimas = chrono::high_resolution_clock::now();
     for (auto mokinys : mokiniai)
     {
-        if (mokinys.galutinis >= 5)
+        if (mokinys.galBalas(skaiciuoti_vidurki) >= 5)
         {
             protingi.push_back(mokinys);
         }
@@ -367,22 +367,22 @@ int main(int argumentu_sk, char *argv[])
         spausdinti_laikus(laikai, eksperimento_kartojimai);
     }
 
-    cout << "Greicio eksperimentai naudojant list" << endl;
-    for (string eksperimento_failas : eksperimentai)
-    {
-        Laikai laikai;
-        for (int i = 0; i < eksperimento_kartojimai; i++)
-        {
-            auto l = eksperimentas<list<Mokinys>>(eksperimento_failas);
-            laiku_suma(laikai, l);
-            cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << i + 1 << " is " << eksperimento_kartojimai << " ]---------" << endl
-                 << endl;
-            spausdinti_laikus(l, 1);
-        }
-        cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << ". Vidutiniai laikai  ]---------" << endl
-             << endl;
-        spausdinti_laikus(laikai, eksperimento_kartojimai);
-    }
+    // cout << "Greicio eksperimentai naudojant list" << endl;
+    // for (string eksperimento_failas : eksperimentai)
+    // {
+    //     Laikai laikai;
+    //     for (int i = 0; i < eksperimento_kartojimai; i++)
+    //     {
+    //         auto l = eksperimentas<list<Mokinys>>(eksperimento_failas);
+    //         laiku_suma(laikai, l);
+    //         cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << " ir atliekant eksperimenta " << i + 1 << " is " << eksperimento_kartojimai << " ]---------" << endl
+    //              << endl;
+    //         spausdinti_laikus(l, 1);
+    //     }
+    //     cout << "---------[ Programos greicio analize naudojant faila:  " << eksperimento_failas << ". Vidutiniai laikai  ]---------" << endl
+    //          << endl;
+    //     spausdinti_laikus(laikai, eksperimento_kartojimai);
+    // }
 }
 
 /*

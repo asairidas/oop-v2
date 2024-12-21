@@ -1,0 +1,136 @@
+Greicio eksperimentai naudojant vector
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000.txt ir atliekant eksperimenta 1 is 2 ]---------
+
+failo nuskaitymas uztruko: 2.19799 ms
+rusiavimas uztruko: 0.75571 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.038804 ms
+skirstymas i dvi grupes uztruko: 0.187056 ms
+silpnuju mokiniu isvedimas i faila uztruko: 36.8161 ms
+protingu mokiniu isvedimas i faila uztruko: 52.1017 ms
+visa trukme: 92.0977 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000.txt ir atliekant eksperimenta 2 is 2 ]---------
+
+failo nuskaitymas uztruko: 1.72874 ms
+rusiavimas uztruko: 0.773985 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.038754 ms
+skirstymas i dvi grupes uztruko: 0.171477 ms
+silpnuju mokiniu isvedimas i faila uztruko: 2.37043 ms
+protingu mokiniu isvedimas i faila uztruko: 3.24264 ms
+visa trukme: 8.32621 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000.txt. Vidutiniai laikai  ]---------
+
+failo nuskaitymas uztruko: 1.96337 ms
+rusiavimas uztruko: 0.764848 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.038779 ms
+skirstymas i dvi grupes uztruko: 0.179266 ms
+silpnuju mokiniu isvedimas i faila uztruko: 19.5932 ms
+protingu mokiniu isvedimas i faila uztruko: 27.6722 ms
+visa trukme: 50.212 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000.txt ir atliekant eksperimenta 1 is 2 ]---------
+
+failo nuskaitymas uztruko: 20.7022 ms
+rusiavimas uztruko: 11.6415 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.391917 ms
+skirstymas i dvi grupes uztruko: 2.03924 ms
+silpnuju mokiniu isvedimas i faila uztruko: 23.3835 ms
+protingu mokiniu isvedimas i faila uztruko: 32.6714 ms
+visa trukme: 90.8304 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000.txt ir atliekant eksperimenta 2 is 2 ]---------
+
+failo nuskaitymas uztruko: 17.4873 ms
+rusiavimas uztruko: 10.3188 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.341941 ms
+skirstymas i dvi grupes uztruko: 1.59448 ms
+silpnuju mokiniu isvedimas i faila uztruko: 19.249 ms
+protingu mokiniu isvedimas i faila uztruko: 28.0311 ms
+visa trukme: 77.0228 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000.txt. Vidutiniai laikai  ]---------
+
+failo nuskaitymas uztruko: 19.0948 ms
+rusiavimas uztruko: 10.9801 ms
+galutiniu pazymiu skaiciavimas uztruko: 0.366929 ms
+skirstymas i dvi grupes uztruko: 1.81686 ms
+silpnuju mokiniu isvedimas i faila uztruko: 21.3162 ms
+protingu mokiniu isvedimas i faila uztruko: 30.3512 ms
+visa trukme: 83.9266 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys100000.txt ir atliekant eksperimenta 1 is 2 ]---------
+
+failo nuskaitymas uztruko: 168.972 ms
+rusiavimas uztruko: 119.211 ms
+galutiniu pazymiu skaiciavimas uztruko: 3.2053 ms
+skirstymas i dvi grupes uztruko: 14.3458 ms
+silpnuju mokiniu isvedimas i faila uztruko: 190.398 ms
+protingu mokiniu isvedimas i faila uztruko: 272.833 ms
+visa trukme: 768.966 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys100000.txt ir atliekant eksperimenta 2 is 2 ]---------
+
+failo nuskaitymas uztruko: 146.567 ms
+rusiavimas uztruko: 122.9 ms
+galutiniu pazymiu skaiciavimas uztruko: 3.3259 ms
+skirstymas i dvi grupes uztruko: 14.0868 ms
+silpnuju mokiniu isvedimas i faila uztruko: 193.803 ms
+protingu mokiniu isvedimas i faila uztruko: 270.415 ms
+visa trukme: 751.097 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys100000.txt. Vidutiniai laikai  ]---------
+
+failo nuskaitymas uztruko: 157.769 ms
+rusiavimas uztruko: 121.056 ms
+galutiniu pazymiu skaiciavimas uztruko: 3.2656 ms
+skirstymas i dvi grupes uztruko: 14.2163 ms
+silpnuju mokiniu isvedimas i faila uztruko: 192.1 ms
+protingu mokiniu isvedimas i faila uztruko: 271.624 ms
+visa trukme: 760.032 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000000.txt ir atliekant eksperimenta 1 is 2 ]---------
+
+failo nuskaitymas uztruko: 1688.65 ms
+rusiavimas uztruko: 1599.04 ms
+galutiniu pazymiu skaiciavimas uztruko: 32.203 ms
+skirstymas i dvi grupes uztruko: 139.962 ms
+silpnuju mokiniu isvedimas i faila uztruko: 1946.7 ms
+protingu mokiniu isvedimas i faila uztruko: 2777.5 ms
+visa trukme: 8184.05 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000000.txt ir atliekant eksperimenta 2 is 2 ]---------
+
+failo nuskaitymas uztruko: 1584.05 ms
+rusiavimas uztruko: 1589.92 ms
+galutiniu pazymiu skaiciavimas uztruko: 32.6073 ms
+skirstymas i dvi grupes uztruko: 145.499 ms
+silpnuju mokiniu isvedimas i faila uztruko: 1997.59 ms
+protingu mokiniu isvedimas i faila uztruko: 2767.34 ms
+visa trukme: 8117.01 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys1000000.txt. Vidutiniai laikai  ]---------
+
+failo nuskaitymas uztruko: 1636.35 ms
+rusiavimas uztruko: 1594.48 ms
+galutiniu pazymiu skaiciavimas uztruko: 32.4052 ms
+skirstymas i dvi grupes uztruko: 142.731 ms
+silpnuju mokiniu isvedimas i faila uztruko: 1972.15 ms
+protingu mokiniu isvedimas i faila uztruko: 2772.42 ms
+visa trukme: 8150.53 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000000.txt ir atliekant eksperimenta 1 is 2 ]---------
+
+failo nuskaitymas uztruko: 15465.8 ms
+rusiavimas uztruko: 19902.3 ms
+galutiniu pazymiu skaiciavimas uztruko: 385.368 ms
+skirstymas i dvi grupes uztruko: 1723.57 ms
+silpnuju mokiniu isvedimas i faila uztruko: 21801.1 ms
+protingu mokiniu isvedimas i faila uztruko: 29814.4 ms
+visa trukme: 89092.5 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000000.txt ir atliekant eksperimenta 2 is 2 ]---------
+
+failo nuskaitymas uztruko: 16814.3 ms
+rusiavimas uztruko: 19546.8 ms
+galutiniu pazymiu skaiciavimas uztruko: 330.881 ms
+skirstymas i dvi grupes uztruko: 1716.37 ms
+silpnuju mokiniu isvedimas i faila uztruko: 21860.6 ms
+protingu mokiniu isvedimas i faila uztruko: 30197.8 ms
+visa trukme: 90466.7 ms
+---------[ Programos greicio analize naudojant faila:  sugeneruoti_duomenys10000000.txt. Vidutiniai laikai  ]---------
+
+failo nuskaitymas uztruko: 16140.1 ms
+rusiavimas uztruko: 19724.5 ms
+galutiniu pazymiu skaiciavimas uztruko: 358.125 ms
+skirstymas i dvi grupes uztruko: 1719.97 ms
+silpnuju mokiniu isvedimas i faila uztruko: 21830.8 ms
+protingu mokiniu isvedimas i faila uztruko: 30006.1 ms
+visa trukme: 89779.6 ms
