@@ -34,3 +34,10 @@ Kietas Diskas(HDD): HDD
 | 100000          | 64.1822                | 8.99959         | 13.6393                             | 15.0855                      | 96.5232                         | 129.883                            | 328.314          |
 | 1000000         | 710.011                | 106.716         | 33.9455                             | 114.931                      | 981.715                         | 1328.22                            | 3275.54          |
 | 10000000        | 7363.2                 | 1481.16         | 573.688                             | 1411.18                      | 9568.22                         | 13653.7                            | 34051.2          |
+
+
+## Klasės Žmogus ir Studentas
+
+Darbe naudojama abstrakti klasė "Žmogus" kuri atsakinga už vardo ir pavardės saugojimą.
+Ši klasė yra abstrakti, tai pasiekiama sukuriant gryną virtualųjį metodą spausdink.
+Studentas klasė paveldi iš žmogaus ir įgyvendina su studento gyvenimu susijusius metodus - galutinio balo skaičiavimą. Ji, taip pat, įgyvendina spausdink metodą tam, kad klasė nebutų abstrakti ir galėtų būti sukuriama.
