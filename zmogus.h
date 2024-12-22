@@ -10,6 +10,7 @@ protected:
     std::string pavarde_;
 
 public:
+    Zmogus() : vardas_(""), pavarde_("") {};
     Zmogus(const std::string &vardas, const std::string &pavarde)
         : vardas_(vardas), pavarde_(pavarde) {}
 
