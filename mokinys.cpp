@@ -40,6 +40,16 @@ bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
     return a.galBalas() < b.galBalas();
 }
 
+void Mokinys::spausdink() const
+{
+    std::cout << vardas_ << " " << pavarde_ << " ";
+    for (auto pazymys : nd_)
+    {
+        std::cout << pazymys << " ";
+    }
+    std::cout << egzaminas_ << std::endl;
+}
+
 Mokinys &Mokinys::operator=(const Mokinys &m)
 {
     if (this != &m)
