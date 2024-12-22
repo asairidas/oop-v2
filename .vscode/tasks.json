@@ -27,6 +27,21 @@
     ],
     "tasks": [
         {
+            "label": "build_zmogus",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-${input:optimizationLevel}",
+                "zmogus_demo.cpp",
+                "-o",
+                "zmogus"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+        },
+        {
             "label": "build_prod",
             "type": "shell",
             "command": "g++",
