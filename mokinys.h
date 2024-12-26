@@ -9,45 +9,47 @@
 #include "statistika.h"
 #include "zmogus.h"
 
+using namespace std;
+
 class Mokinys : public Zmogus
 {
 private:
     double egzaminas_;
-    std::vector<double> nd_;
+    vector<double> nd_;
 
 public:
     double galutinis;
-    Mokinys() : Zmogus(), egzaminas_(0), galutinis(0) {}; // default constructor
-    Mokinys(std::istream &);
+    Mokinys() : Zmogus(), egzaminas_(0), galutinis(0) {}; // numatytasis konstruktorius
+    Mokinys(istream &);                                   // konstruktorius
 
-    // copy constructor
+    // kopijavimo konstruktorius
     inline Mokinys(const Mokinys &m) : Zmogus(m), egzaminas_(m.egzaminas_), nd_(m.nd_) {}
-    inline ~Mokinys() {} // destructor
+    inline ~Mokinys() {} // destruktorius
 
-    // copy assignment operator
+    // kopijavimo priskyrimo operatorius
     Mokinys &operator=(const Mokinys &m);
 
     double galBalas(double (*)(std::vector<double>)) const;
-    inline std::string vardas() const { return vardas_; }
-    inline std::string pavarde() const { return pavarde_; }
+    inline string vardas() const { return vardas_; }   // geteriai
+    inline string pavarde() const { return pavarde_; } // geteriai
 
-    inline int ndSize() const { return nd_.size(); }
+    inline int ndSize() const { return nd_.size(); } // geteris
 
-    std::istream &readStudent(std::istream &); // setters
+    istream &readStudent(istream &); // seteris
 
-    friend std::istream &operator>>(std::istream &is, Mokinys &m)
+    friend istream &operator>>(istream &is, Mokinys &m)
     {
         return m.readStudent(is);
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const Mokinys &m)
+    friend ostream &operator<<(ostream &os, const Mokinys &m)
     {
         os << m.vardas() << " " << m.pavarde() << " ";
         for (auto pazymys : m.nd_)
         {
             os << pazymys << " ";
         }
-        os << m.egzaminas_ << std::endl;
+        os << m.egzaminas_ << endl;
         return os;
     }
 

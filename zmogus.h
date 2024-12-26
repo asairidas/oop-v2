@@ -3,16 +3,17 @@
 
 #include <string>
 
+using namespace std;
+
 class Zmogus
 {
 protected:
-    std::string vardas_;
-    std::string pavarde_;
+    string vardas_;
+    string pavarde_;
 
 public:
-    Zmogus() : vardas_(""), pavarde_("") {};
-    Zmogus(const std::string &vardas, const std::string &pavarde)
-        : vardas_(vardas), pavarde_(pavarde) {}
+    Zmogus() : vardas_(""), pavarde_("") {}; // numatytasis konstruktorius
+    Zmogus(const string &vardas, const string &pavarde) : vardas_(vardas), pavarde_(pavarde) {}
 
     virtual ~Zmogus() = default;
 

@@ -2,7 +2,9 @@
 #include "mokinys.h"
 #include "statistika.h"
 
-std::istream &Mokinys::readStudent(std::istream &is)
+using namespace std;
+
+istream &Mokinys::readStudent(istream &is)
 {
     is >> vardas_ >> pavarde_;
     double nd_pazymys;
@@ -15,14 +17,14 @@ std::istream &Mokinys::readStudent(std::istream &is)
     return is;
 }
 
-Mokinys::Mokinys(std::istream &is)
+Mokinys::Mokinys(istream &is)
 {
     readStudent(is);
 }
 
-double Mokinys::galBalas(double (*func)(std::vector<double>) = skaiciuoti_mediana) const
+double Mokinys::galBalas(double (*priskyrimoFunkcija)(vector<double>) = skaiciuoti_mediana) const
 {
-    return func(nd_) * 0.4 + egzaminas_ * 0.6;
+    return priskyrimoFunkcija(nd_) * 0.4 + egzaminas_ * 0.6;
 }
 
 bool compare(const Mokinys &a, const Mokinys &b)
@@ -42,12 +44,12 @@ bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
 
 void Mokinys::spausdink() const
 {
-    std::cout << vardas_ << " " << pavarde_ << " ";
+    cout << vardas_ << " " << pavarde_ << " ";
     for (auto pazymys : nd_)
     {
-        std::cout << pazymys << " ";
+        cout << pazymys << " ";
     }
-    std::cout << egzaminas_ << std::endl;
+    cout << egzaminas_ << std::endl;
 }
 
 Mokinys &Mokinys::operator=(const Mokinys &m)
