@@ -1,7 +1,8 @@
 #include <algorithm>
 #include "mokinys.h"
+using namespace std;
 
-double skaiciuoti_vidurki(std::vector<double> pazymiai)
+double skaiciuoti_vidurki(vector<double> pazymiai)
 {
     // jeigu pazymiu nera grazina 0
     if (pazymiai.size() == 0)
@@ -19,7 +20,7 @@ double skaiciuoti_vidurki(std::vector<double> pazymiai)
     return vidurkis;
 }
 
-double skaiciuoti_mediana(std::vector<double> pazymiai)
+double skaiciuoti_mediana(vector<double> pazymiai)
 {
     double mediana = 0;
     sort(pazymiai.begin(), pazymiai.end());

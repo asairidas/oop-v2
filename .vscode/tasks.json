@@ -7,10 +7,6 @@
             "description": "Choose the optimization level",
             "options": [
                 {
-                    "value": "O0",
-                    "label": "O0"
-                },
-                {
                     "value": "O1",
                     "label": "O1"
                 },

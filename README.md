@@ -48,16 +48,34 @@ Kietas Diskas(HDD): HDD
 | 10,000,000         | 16140.1               | 19724.5         | 358.125                           | 1719.97                    | 21830.8                       | 30006.1                        | 89779.6          |
 
 
+# Klasių ir struktūrų veikimo greičio palyginimas
 
+Toliau pateikta lentelė palygina klasių ir struktūrų naudojimą atliekant įvairias operacijas, įskaitant failo nuskaitymą, rikiavimą, galutinių pažymių skaičiavimą, grupavimą, silpnųjų ir protingųjų studentų išvedimą, bei bendrą veikimo trukmę. 
 
+## Palyginimo rezultatai
 
-## Greičio eksperimentai naudojant `vector` ir `struct`
+| Eilučių kiekis | Operacija                 | Struktūra (ms) | Klasė (ms) | Skirtumas (%) |
+|----------------|---------------------------|----------------|------------|---------------|
+| **100,000**    | Failo nuskaitymas         | 162.39         | 176.044    | +8.41         |
+|                | Rūšiavimas                | 237.227        | 289.916    | +22.22        |
+|                | Galutinių pažymių skaičiavimas | 10.0711   | 9.36294    | -7.04         |
+|                | Grupavimas                | 30.1741        | 23.7894    | -21.16        |
+|                | Silpnųjų išvedimas        | 115.13         | 144.412    | +25.45        |
+|                | Protingųjų išvedimas      | 161.405        | 172.422    | +6.83         |
+|                | **Visa trukmė**           | **716.401**    | **815.951**| **+13.92**    |
+| **1,000,000**  | Failo nuskaitymas         | 1444.15        | 1497.55    | +3.69         |
+|                | Rūšiavimas                | 2997.06        | 3510.63    | +17.15        |
+|                | Galutinių pažymių skaičiavimas | 94.0012   | 93.4055    | -0.63         |
+|                | Grupavimas                | 353.791        | 274.824    | -22.31        |
+|                | Silpnųjų išvedimas        | 1215.5         | 1187.11    | -2.33         |
+|                | Protingųjų išvedimas      | 1627.72        | 1746.56    | +7.30         |
+|                | **Visa trukmė**           | **7732.24**    | **8310.08**| **+7.47**     |
 
-| Eilučių kiekis  | Failo nuskaitymas (ms) | Rikiavimas (ms) | Galutinių pažymių skaičiavimas (ms) | Skirstymas į du sąrašus (ms) | Silpnųjų mokinių išvedimas (ms) | Protingųjų mokinių išvedimas (ms) | Visa trukmė (ms) |
-|-----------------|------------------------|-----------------|-------------------------------------|------------------------------|---------------------------------|-----------------------------------|------------------|
-| 1000            | 0.935059               | 0.196684        | 0.034836                            | 0.113787                     | 0.910391                        | 1.34973                            | 3.5407           |
-| 10000           | 7.3318                 | 7.20439         | 0.396134                            | 1.25571                      | 14.4801                         | 16.8448                            | 47.5134          |
-| 100000          | 93.9962                | 41.5882         | 4.72499                             | 14.8127                      | 109.099                         | 145.986                            | 410.208          |
-| 1000000         | 708.58                 | 527.017         | 33.2891                             | 116.225                      | 979.374                         | 1274.06                            | 3638.54          |
-| 10000000        | 7500.52                | 6838.17         | 340.182                             | 1388.66                      | 9806.27                         | 13008.2                            | 38882            |
+---
+
+## Išvados
+1. **Bendras veikimo laikas**: Struktūros yra šiek tiek greitesnės nei klasės (ypač esant mažesniam duomenų kiekiui).
+2. **Rūšiavimas ir silpnųjų išvedimas**: Šiose operacijose klasės yra lėtesnės nei struktūros.
+3. **Grupavimas**: Grupavimo metu klasės pasižymi didesniu efektyvumu.
+4. **Dideli duomenų kiekiai**: Esant 1,000,000 eilučių, skirtumai tarp struktūrų ir klasių sumažėja, tačiau struktūros išlieka šiek tiek greitesnės.
 

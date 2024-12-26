@@ -4,40 +4,51 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <ostream>
 
 #include "statistika.h"
+using namespace std;
 
 class Mokinys
 {
 private:
-    std::string vardas_;
-    std::string pavarde_;
+    string vardas_;
+    string pavarde_;
     double egzaminas_;
-    std::vector<double> nd_;
+    vector<double> nd_;
 
 public:
     double galutinis;
-    Mokinys() : egzaminas_(0), galutinis(0) {}; // defult constructor
-    Mokinys(std::istream &);
+    Mokinys() : egzaminas_(0), galutinis(0) {}; // numatytasis konstruktorius
+    Mokinys(istream &);                         // konstruktorius
+    ~Mokinys() {};                              // destruktorius
 
-    inline std::string vardas() const { return vardas_; }
-    inline std::string pavarde() const { return pavarde_; }
-    double galBalas(double (*)(std::vector<double>)) const;
+    inline string vardas() const { return vardas_; }   // geteriai
+    inline string pavarde() const { return pavarde_; } // geteriai
+    double galBalas(double (*)(vector<double>)) const; // geteriai
 
     inline int ndSize() const { return nd_.size(); }
 
-    std::istream &readStudent(std::istream &); // setters
+    istream &readStudent(istream &); // seteris
     // funkcija rasymui i faila
 
-    friend std::ostream &operator<<(std::ostream &os, const Mokinys &m)
+    /*
+    Operatorius friend, skirtas išvesti Mokinys objektą į srautą, naudojant << operatoriu.
+    friend leidzia nuskaityti duomenis is privaciu kintamuju.
+    Jis išveda mokinio vardą, pavardę, namų darbų pažymius ir egzamino pažymį.
+
+    os Išvesties srautas.
+
+    m Mokinys objektas, kurio duomenys bus išvesti.
+    */
+
+    friend ostream &operator<<(ostream &os, const Mokinys &m)
     {
         os << m.vardas_ << " " << m.pavarde_ << " ";
         for (auto pazymys : m.nd_)
         {
             os << pazymys << " ";
         }
-        os << m.egzaminas_ << std::endl;
+        os << m.egzaminas_ << endl;
         return os;
     }
 };

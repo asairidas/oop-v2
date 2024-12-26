@@ -141,7 +141,7 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
 
     while (getline(ivedimo_failas, eilute))
     {
-        // turn the string into ifstream
+
         istringstream eilute_stream(eilute);
         auto m = Mokinys(eilute_stream);
         mokiniai.push_back(m);
@@ -237,10 +237,6 @@ Laikai eksperimentas(string eksperimento_failas)
     // kiekvieno mokinio galutinis pazymys bus skaiciuojamas pagal vidurki
 
     auto pradzia_galutinio_skaiciavimas = chrono::high_resolution_clock::now();
-    // for (int i = 0; i < mokiniai.size(); i++)
-    // {
-    //     mokiniai[i].galutinis = skaiciuoti_galutini(mokiniai[i], "vid");
-    // }
 
     for (auto &mokinys : mokiniai)
     {
