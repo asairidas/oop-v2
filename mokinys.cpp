@@ -2,7 +2,9 @@
 #include "mokinys.h"
 #include "statistika.h"
 
-std::istream &Mokinys::readStudent(std::istream &is)
+using namespace std;
+
+istream &Mokinys::readStudent(istream &is)
 {
     is >> vardas_ >> pavarde_;
     double nd_pazymys;
@@ -15,14 +17,14 @@ std::istream &Mokinys::readStudent(std::istream &is)
     return is;
 }
 
-Mokinys::Mokinys(std::istream &is)
+Mokinys::Mokinys(istream &is)
 {
     readStudent(is);
 }
 
-double Mokinys::galBalas(double (*func)(std::vector<double>) = skaiciuoti_mediana) const
+double Mokinys::galBalas(double (*skaiciavimoFunkcija)(vector<double>) = skaiciuoti_mediana) const
 {
-    return func(nd_) * 0.4 + egzaminas_ * 0.6;
+    return skaiciavimoFunkcija(nd_) * 0.4 + egzaminas_ * 0.6;
 }
 
 bool compare(const Mokinys &a, const Mokinys &b)
@@ -42,12 +44,15 @@ bool comparePagalEgza(const Mokinys &a, const Mokinys &b)
 
 Mokinys &Mokinys::operator=(const Mokinys &m)
 {
+    // Patikriname, ar nepriskiriame objekto pačiam sau
     if (this != &m)
     {
+        // Priskiriame visus laukus iš objekto m į esamą objektą
         vardas_ = m.vardas_;
         pavarde_ = m.pavarde_;
         egzaminas_ = m.egzaminas_;
         nd_ = m.nd_;
     }
+    // Grąžiname nuorodą į esamą objektą
     return *this;
 }

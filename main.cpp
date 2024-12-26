@@ -142,7 +142,7 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
 
     while (getline(ivedimo_failas, eilute))
     {
-        // turn the string into ifstream
+        // string paverciamas i ifstream
         istringstream eilute_stream(eilute);
         auto m = Mokinys(eilute_stream);
         eilute_stream >> m;
