@@ -271,13 +271,15 @@ Laikai eksperimentas(string eksperimento_failas)
     chrono::duration<double, milli>
         atskyrimas_trukme = pabaiga_atskyrimas - pradzia_atskyrimas;
 
+    auto protingu_failas = "protingi_" + std::to_string(mokiniai.size()) + ".txt";
     auto pradzia_protingu_irasymas = chrono::high_resolution_clock::now();
-    failu_irasymas(protingi, "protingi.txt");
+    failu_irasymas(protingi, protingu_failas);
     auto pabaiga_protingu_irasymas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> protingu_irasymas_trukme = pabaiga_protingu_irasymas - pradzia_protingu_irasymas;
 
+    auto silpnu_failas = "silpni_moksluose_" + std::to_string(mokiniai.size()) + ".txt";
     auto pradzia_silpnu_irasymas = chrono::high_resolution_clock::now();
-    failu_irasymas(silpni_moksluose, "silpni_moksluose.txt");
+    failu_irasymas(silpni_moksluose, silpnu_failas);
     auto pabaiga_silpnu_irasymas = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> silpnu_irasymas_trukme = pabaiga_silpnu_irasymas - pradzia_silpnu_irasymas;
 
@@ -339,7 +341,8 @@ int main(int argumentu_sk, char *argv[])
         nuskaityti_is_klaviaturos = true;
     }
 
-    vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
+    // vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
+    vector<string> eksperimentai{"sugeneruoti_duomenys10000.txt"};
 
     if (nuskaityti_is_klaviaturos)
     {
