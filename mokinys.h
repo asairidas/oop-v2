@@ -15,7 +15,7 @@ class Mokinys : public Zmogus
 {
 private:
     double egzaminas_;
-    vector<double> nd_;
+    vector<double> *nd_;
 
 public:
     double galutinis;
@@ -29,11 +29,11 @@ public:
     // kopijavimo priskyrimo operatorius
     Mokinys &operator=(const Mokinys &m);
 
-    double galBalas(double (*)(std::vector<double>)) const;
+    double galBalas(double (*)(std::vector<double> *)) const;
     inline string vardas() const { return vardas_; }   // geteriai
     inline string pavarde() const { return pavarde_; } // geteriai
 
-    inline int ndSize() const { return nd_.size(); } // geteris
+    inline int ndSize() const { return (*nd_).size(); } // geteris
 
     istream &readStudent(istream &); // seteris
 

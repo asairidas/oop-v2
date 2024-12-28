@@ -4,7 +4,7 @@
 
 using namespace std;
 
-double skaiciuoti_vidurki(vector<double>);
-double skaiciuoti_mediana(vector<double>);
+double skaiciuoti_vidurki(vector<double> *);
+double skaiciuoti_mediana(vector<double> *);
 
 #endif
