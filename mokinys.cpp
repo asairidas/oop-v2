@@ -63,3 +63,19 @@ Mokinys &Mokinys::operator=(const Mokinys &m)
     }
     return *this;
 }
+
+istream &operator>>(istream &is, Mokinys &m)
+{
+    return m.readStudent(is);
+}
+
+ostream &operator<<(ostream &os, const Mokinys &m)
+{
+    os << m.vardas() << " " << m.pavarde() << " ";
+    for (auto pazymys : m.nd_)
+    {
+        os << pazymys << " ";
+    }
+    os << m.egzaminas_ << endl;
+    return os;
+}

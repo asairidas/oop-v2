@@ -145,6 +145,7 @@ K duomenu_nuskaitymas_is_failo(string failo_vardas)
         // turn the string into ifstream
         istringstream eilute_stream(eilute);
         auto m = Mokinys(eilute_stream);
+        // naudojame ivesties operatoriaus perdengima
         eilute_stream >> m;
         mokiniai.push_back(m);
     }
@@ -188,6 +189,7 @@ void failu_irasymas(K &mokiniai, string failo_vardas)
     }
     failas << "Egz." << endl;
 
+    // naudojame isvesties operatoriaus perdengima
     for (auto mokinys : mokiniai)
     {
         failas << mokinys;
