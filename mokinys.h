@@ -19,12 +19,12 @@ private:
 
 public:
     double galutinis;
-    Mokinys() : Zmogus(), egzaminas_(0), galutinis(0) {}; // numatytasis konstruktorius
-    Mokinys(istream &);                                   // konstruktorius
+    Mokinys();          // numatytasis konstruktorius
+    Mokinys(istream &); // konstruktorius
 
     // kopijavimo konstruktorius
-    inline Mokinys(const Mokinys &m) : Zmogus(m), egzaminas_(m.egzaminas_), nd_(m.nd_) {}
-    inline ~Mokinys() {} // destruktorius
+    Mokinys(const Mokinys &m);
+    ~Mokinys(); // destruktorius
 
     // kopijavimo priskyrimo operatorius
     Mokinys &operator=(const Mokinys &m);

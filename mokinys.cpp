@@ -4,6 +4,10 @@
 
 using namespace std;
 
+Mokinys::Mokinys() : Zmogus(), egzaminas_(0), galutinis(0) {}; // numatytasis konstruktorius
+Mokinys::Mokinys(const Mokinys &m) : Zmogus(m), egzaminas_(m.egzaminas_), nd_(m.nd_) {}
+
+Mokinys::~Mokinys() {} // destruktorius
 istream &Mokinys::readStudent(istream &is)
 {
     is >> vardas_ >> pavarde_;
