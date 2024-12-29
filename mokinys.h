@@ -21,6 +21,7 @@ public:
     double galutinis;
     Mokinys();          // numatytasis konstruktorius
     Mokinys(istream &); // konstruktorius
+    Mokinys(string vardas, string pavarde, double egzaminas, vector<double> &nd);
 
     // kopijavimo konstruktorius
     Mokinys(const Mokinys &m);

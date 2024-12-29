@@ -27,47 +27,50 @@ int generuoti_atsitiktini_pazymi()
     static uniform_int_distribution<int> pazymiu_generavimas(1, 10);
     return pazymiu_generavimas(mt);
 }
+Mokinys nuskaityti_mokinio_duomenis()
+{
+    string vardas;
+    string pavarde;
+    int egzamino_rezultatas;
+    vector<double> namu_darbu_rezultatai;
+    cout << "Iveskite varda:" << endl;
+    cin >> vardas;
+    cout << "Ivedete varda " << vardas << endl;
+    cout << "Iveskite pavarde" << endl;
+    cin >> pavarde;
+    cout << "Ivedete pavarde " << pavarde << endl;
 
-// Mokinys nuskaityti_mokinio_duomenis()
-// {
-//     Mokinys m;
+    string str_pazymys;
+    cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete). Jei ivesite 0, bus sugeneruotas atsitiktinis balas: ";
+    cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
+    while (getline(cin, str_pazymys) && !str_pazymys.empty())
+    {
+        int pazymys = stoi(str_pazymys);
+        // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+        if (pazymys == 0)
+        {
+            pazymys = generuoti_atsitiktini_pazymi();
+            cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
+        }
+        namu_darbu_rezultatai.push_back(pazymys);
+        cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
+    }
 
-//     cout << "Iveskite varda:" << endl;
-//     cin >> m.vardas;
-//     cout << "Ivedete varda " << m.vardas << endl;
-//     cout << "Iveskite pavarde" << endl;
-//     cin >> m.pavarde;
-//     cout << "Ivedete pavarde " << m.pavarde << endl;
+    cout << "Iveskite egzamino rezultata. Jei ivesite 0, bus sugeneruotas atsitiktinis balas:" << endl;
+    cin >> egzamino_rezultatas;
+    // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
+    if (egzamino_rezultatas == 0)
+    {
+        egzamino_rezultatas = generuoti_atsitiktini_pazymi();
+        cout << "Sugeneruotas atsitiktinis pazymys: " << egzamino_rezultatas << endl;
+    }
 
-//     string str_pazymys;
-//     cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete). Jei ivesite 0, bus sugeneruotas atsitiktinis balas: ";
-//     cin.ignore(10, '\n'); // Ignoruojame likusią eilutę po paskutinio cin
-//     while (getline(cin, str_pazymys) && !str_pazymys.empty())
-//     {
-//         int pazymys = stoi(str_pazymys);
-//         // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
-//         if (pazymys == 0)
-//         {
-//             pazymys = generuoti_atsitiktini_pazymi();
-//             cout << "Sugeneruotas atsitiktinis pazymys: " << pazymys << endl;
-//         }
-//         m.namu_darbu_rezultatai.push_back(pazymys);
-//         cout << "Iveskite pazymi (arba paspauskite Enter, kad baigtumete): ";
-//     }
+    cout << "Ivedete egzamino rezultata " << egzamino_rezultatas << endl;
 
-//     cout << "Iveskite egzamino rezultata. Jei ivesite 0, bus sugeneruotas atsitiktinis balas:" << endl;
-//     cin >> m.egzamino_rezultatas;
-//     // jei pazymys yra 0 tai pakeiciame ji atsitiktiniu skaiciumi is intervalo [1, 10]
-//     if (m.egzamino_rezultatas == 0)
-//     {
-//         m.egzamino_rezultatas = generuoti_atsitiktini_pazymi();
-//         cout << "Sugeneruotas atsitiktinis pazymys: " << m.egzamino_rezultatas << endl;
-//     }
-
-//     cout << "Ivedete egzamino rezultata " << m.egzamino_rezultatas << endl;
-//     cout << "Mokinio objektas saugomas atmintyje adresu: " << &m << endl;
-//     return m;
-// }
+    auto m = Mokinys(vardas, pavarde, egzamino_rezultatas, namu_darbu_rezultatai);
+    cout << "Mokinio objektas saugomas atmintyje adresu: " << &m << endl;
+    return m;
+}
 
 double skaiciuoti_galutini(Mokinys &m, const string &pasirinkimas)
 {
@@ -103,9 +106,7 @@ vector<Mokinys> duomenu_nuskaitymas_is_klaviaturos()
 
     for (int k = 0; k < studentu_skaicius; ++k)
     {
-        Mokinys m;
-        cin >> m;
-        mokiniai.push_back(m);
+        mokiniai.push_back(nuskaityti_mokinio_duomenis());
     }
     return mokiniai;
 }

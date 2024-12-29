@@ -15,6 +15,12 @@ Mokinys::Mokinys(const Mokinys &m) : Zmogus(m), egzaminas_(m.egzaminas_)
     // sukuriame nauja vektoriu heap'e ir inicializuojame su m.nd_ reiksmemis
     nd_ = new vector<double>(*m.nd_);
 }
+
+Mokinys::Mokinys(string vardas, string pavarde, double egzaminas, vector<double> &nd) : Zmogus(vardas, pavarde), egzaminas_(egzaminas)
+{
+    nd_ = new vector<double>(nd);
+}
+
 Mokinys::~Mokinys()
 {
     // kadangi nd_ yra heap'e, reikia atminti atlaisvinti
@@ -34,7 +40,9 @@ istream &Mokinys::readStudent(istream &is)
     return is;
 }
 
-Mokinys::Mokinys(istream &is)
+// konstruktorius, kuris nuskaito duomenis is failo
+// inicializuojame atminti pazymiams, tada iskvieciame readStudent funkcija
+Mokinys::Mokinys(istream &is) : nd_(new vector<double>())
 {
     readStudent(is);
 }
