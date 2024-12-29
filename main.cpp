@@ -344,8 +344,7 @@ int main(int argumentu_sk, char *argv[])
         nuskaityti_is_klaviaturos = true;
     }
 
-    // vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
-    vector<string> eksperimentai{"sugeneruoti_duomenys10000.txt"};
+    vector<string> eksperimentai{"sugeneruoti_duomenys1000.txt", "sugeneruoti_duomenys10000.txt", "sugeneruoti_duomenys100000.txt", "sugeneruoti_duomenys1000000.txt", "sugeneruoti_duomenys10000000.txt"};
 
     if (nuskaityti_is_klaviaturos)
     {
